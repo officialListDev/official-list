@@ -1,0 +1,39 @@
+aside {
+  position: fixed;
+  top: 0;
+  padding-top: 56px;
+  z-index: 100;
+  background: #ffffff;
+  border-right: 1px solid #979797;
+  width: calc(225px - 2rem);
+  height: calc(100vh - 65px);
+  transform: translate3d(-226px,0,0);
+  transition: 0.3s ease-out;
+}
+
+aside.expanded {
+  transform: translate3d(0,0,0);
+}
+
+aside nav ul {
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+aside nav ul li {
+  font-size: 22px;
+}
+
+aside nav ul li:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+aside nav ul li a {
+  text-decoration: none;
+  color: #5f5f5f;
+}
+
+.nav-item {
+  padding: 0.75rem 1rem;
+}
