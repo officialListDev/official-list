@@ -1,5 +1,5 @@
 import Home from './containers/Home';
-import Search from './containers/Search';
+import Search from './containers/Search/index';
 
 export default [
   {
@@ -8,7 +8,7 @@ export default [
     component: Home,
   },
   {
-    path: '/about',
+    path: '/search',
     component: Search,
   },
   {

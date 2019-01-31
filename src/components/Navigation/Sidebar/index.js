@@ -28,4 +28,8 @@ const Sidebar = ({ isOpen }) => (
 
 Sidebar.propTypes = propTypes;
 
+Sidebar.defaultProps = {
+  isOpen: false,
+};
+
 export default Sidebar;

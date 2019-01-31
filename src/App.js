@@ -5,7 +5,7 @@ import Routes from './route.config';
 
 const App = () => (
   <Router>
-    <div id="root">
+    <div id="app-root">
       <Navigation />
       {Routes.map(route => (
         <Route
