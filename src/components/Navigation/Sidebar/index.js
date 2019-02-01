@@ -9,7 +9,7 @@ const propTypes = exact({
 });
 
 const Sidebar = ({ isOpen }) => (
-  <aside className={`${isOpen ? 'expanded' : ''}`}>
+  <aside id="sidebar" className={`${isOpen ? 'expanded' : ''}`}>
     <nav>
       <ul>
         <li>

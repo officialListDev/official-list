@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
 import './style.css';
-import SearchBox from './SearchBox';
-import ListIcon from '../../img/list.svg';
-import GridIcon from '../../img/grid.svg';
+import SearchHeader from './SearchHeader';
+import SearchFilters from './SearchFilters';
+import SearchResults from './SearchResults';
+import results from '../../mocks/search-results';
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       viewMode: 'grid',
+      showFilters: true,
+      minAge: 25,
+      maxAge: 34,
+      height: {
+        feet: 5,
+        inches: 8,
+      },
+      weight: 160,
     };
     this.toggleViewMode = this.toggleViewMode.bind(this);
+    this.toggleFilters = this.toggleFilters.bind(this);
+    this.updateMinAge = this.updateMinAge.bind(this);
+    this.updateMaxAge = this.updateMaxAge.bind(this);
+    this.updateHeightFeet = this.updateHeightFeet.bind(this);
+    this.updateHeightInches = this.updateHeightInches.bind(this);
+    this.updateWeight = this.updateWeight.bind(this);
   }
 
   toggleViewMode(mode) {
@@ -19,29 +34,73 @@ class Search extends Component {
     });
   }
 
+  toggleFilters(bool) {
+    this.setState({
+      showFilters: bool,
+    });
+  }
+
+  updateMinAge(age) {
+    this.setState({
+      minAge: parseInt(age, 10),
+    });
+  }
+
+  updateMaxAge(age) {
+    this.setState({
+      maxAge: parseInt(age, 10),
+    });
+  }
+
+  updateHeightFeet(feet) {
+    const { height } = this.state;
+    const { inches } = height;
+    this.setState({
+      height: {
+        feet: parseInt(feet, 10),
+        inches,
+      },
+    });
+  }
+
+  updateHeightInches(inches) {
+    const { height } = this.state;
+    const { feet } = height;
+    this.setState({
+      height: {
+        feet,
+        inches: parseInt(inches, 10),
+      },
+    });
+  }
+
+  updateWeight(weight) {
+    this.setState({
+      weight: parseInt(weight, 10),
+    });
+  }
+
   render() {
-    const { viewMode } = this.state;
+    const {
+      viewMode, showFilters, minAge, maxAge, height, weight,
+    } = this.state;
     return (
-      <div id="search-root" className="root-container">
-        <div className="top-row">
-          <SearchBox />
-          <div id="view-as">
-            <p>View As:</p>
-            <button
-              type="button"
-              onClick={() => this.toggleViewMode('list')}
-            >
-              <img src={ListIcon} alt="list" />
-            </button>
-            <button
-              type="button"
-              onClick={() => this.toggleViewMode('grid')}
-            >
-              <img src={GridIcon} alt="grid" />
-            </button>
-          </div>
-        </div>
-        <p>{viewMode}</p>
+      <div id="search-root" className={showFilters ? '' : 'expanded'}>
+        <SearchHeader showFilters={showFilters} toggleViewMode={this.toggleViewMode} />
+        <SearchFilters
+          showFilters={showFilters}
+          minAge={minAge}
+          maxAge={maxAge}
+          height={height}
+          weight={weight}
+          toggleFilters={this.toggleFilters}
+          updateMinAge={this.updateMinAge}
+          updateMaxAge={this.updateMaxAge}
+          updateHeightFeet={this.updateHeightFeet}
+          updateHeightInches={this.updateHeightInches}
+          updateWeight={this.updateWeight}
+        />
+        <SearchResults results={results} viewMode={viewMode} showFilters={showFilters} />
       </div>
     );
   }

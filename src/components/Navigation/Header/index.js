@@ -6,8 +6,8 @@ import './style.css';
 import Logo from '../../../img/logo.png';
 
 const propTypes = exact({
-  isSidebarOpen: bool,
-  toggleSidebar: func,
+  isSidebarOpen: bool.isRequired,
+  toggleSidebar: func.isRequired,
 });
 
 const Header = ({ isSidebarOpen, toggleSidebar }) => (
