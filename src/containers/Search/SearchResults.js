@@ -1,17 +1,16 @@
 import React from 'react';
 import exact from 'prop-types-exact';
 import {
-  string, bool, arrayOf, shape,
+  string, bool, arrayOf, shape, number, func,
 } from 'prop-types';
-import InstagramIcon from '../../img/instagram.svg';
-import FacebookIcon from '../../img/facebook.svg';
-import YoutubeIcon from '../../img/youtube.svg';
-import TwitterIcon from '../../img/twitter.svg';
+import SearchResultsList from './SearchResultsList';
+import SearchResultsGrid from './SearchResultsGrid';
 
 const propTypes = exact({
   viewMode: string.isRequired,
   showFilters: bool.isRequired,
   results: arrayOf(shape({
+    id: number.isRequired,
     headshot: string.isRequired,
     firstName: string.isRequired,
     lastName: string.isRequired,
@@ -22,48 +21,15 @@ const propTypes = exact({
       twitter: string,
     }).isRequired,
   })).isRequired,
+  openActorDetail: func.isRequired,
 });
 
-const SearchResults = ({ viewMode, showFilters, results }) => (
+const SearchResults = ({
+  viewMode, showFilters, results, openActorDetail,
+}) => (
   <div id="results-container">
-    {viewMode === 'grid' && results.map(result => (
-      <div className={showFilters ? 'grid-card' : 'grid-card compact'} key={`${result.firstName}-${result.lastName}`}>
-        <div className="grid-card-image" style={{ backgroundImage: `url(${result.headshot})` }} />
-        <div className="grid-card-info">
-          <p>
-            {result.firstName}
-            &nbsp;
-            {result.lastName}
-          </p>
-          <div className="social-icon-group">
-            {result.socialMedia.instagram && <a href={result.socialMedia.instagram}><img src={InstagramIcon} alt="instagram" /></a>}
-            {result.socialMedia.facebook && <a href={result.socialMedia.facebook}><img src={FacebookIcon} alt="facebook" /></a>}
-            {result.socialMedia.youtube && <a href={result.socialMedia.youtube}><img src={YoutubeIcon} alt="youtube" /></a>}
-            {result.socialMedia.twitter && <a href={result.socialMedia.twitter}><img src={TwitterIcon} alt="twitter" /></a>}
-          </div>
-        </div>
-      </div>
-    ))}
-    {viewMode === 'list' && (
-      <table className="results-list" cellSpacing="0">
-        <thead>
-          <tr>
-            <th>Headshot</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {results.map(result => (
-            <tr className="row" key={`${result.firstName}-${result.lastName}`}>
-              <td><div className="headshot-cell" style={{ backgroundImage: `url(${result.headshot})` }} /></td>
-              <td>{result.firstName}</td>
-              <td>{result.lastName}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    )}
+    {viewMode === 'grid' && <SearchResultsGrid results={results} showFilters={showFilters} openActorDetail={openActorDetail} />}
+    {viewMode === 'list' && <SearchResultsList results={results} openActorDetail={openActorDetail} />}
   </div>
 );
 

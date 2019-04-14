@@ -97,8 +97,8 @@
   top: 57px;
   z-index: 100;
   width: calc(250px - 2rem);
-  padding: 0 1rem;
-  height: calc(100vh - 57px);
+  padding: 0 1rem 50px;
+  height: calc(100vh - 107px);
   overflow-y: scroll;
   background: #ffffff;
   border-right: 1px solid #8E8E93;
@@ -141,84 +141,31 @@
   margin: 0;
 }
 
-.slider-container label {
-  margin: 1rem 0;
-  display: block;
-}
-
-.slider-container label input {
-  width: 100%;
-  margin: 0.25rem 0;
+#apply-filters {
   appearance: none;
-  outline: none;
-}
-
-h4 input.inline {
-  outline: none;
-  font-size: 18px;
-  padding: 8px 11px;
-  margin-left: 1rem;
-}
-
-.slider-container label input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 16px;
-  width: 16px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 102;
+  background-color: rgb(67, 197, 196);
+  color: #ffffff;
   border: none;
-  border-radius: 100%;
-  background-color: #43c5c4;
-  margin-top: -4px;
+  margin: 0;
+  padding: 1rem 0;
+  text-transform: uppercase;
+  font-size: 16px;
+  width: 250px;
+  transition: 0.3s;
+  transform: translate3d(0,0,0);
   cursor: pointer;
 }
 
-.slider-container label input[type="range"]::-webkit-slider-runnable-track {
-  -webkit-appearance: none;
-  height: 8px;
-  width: 100%;
-  border: 1px solid #8e8e93;
-  border-radius: 5px;
-  background-color: #ffffff;
-  cursor: pointer;
+#apply-filters:hover {
+  background-color: rgb(57, 153, 153);
 }
 
-.slider-container label input[type="range"]::-moz-range-thumb {
-  -moz-appearance: none;
-  height: 16px;
-  width: 16px;
-  border: none;
-  border-radius: 100%;
-  background-color: #43c5c4;
-  cursor: pointer;
-}
-
-.slider-container label input[type="range"]::-moz-range-track {
-  -moz-appearance: none;
-  height: 8px;
-  width: 100%;
-  border: 1px solid #8e8e93;
-  border-radius: 5px;
-  background-color: #ffffff;
-  cursor: pointer;
-}
-
-.slider-container label input[type="range"]::-ms-thumb {
-  -ms-appearance: none;
-  height: 16px;
-  width: 16px;
-  border: none;
-  border-radius: 100%;
-  background-color: #43c5c4;
-  cursor: pointer;
-}
-
-.slider-container label input::-ms-track {
-  -ms-appearance: none;
-  height: 8px;
-  width: 100%;
-  border: 1px solid #8e8e93;
-  border-radius: 5px;
-  background-color: #ffffff;
-  cursor: pointer;
+#apply-filters.hidden {
+  transform: translate3d(-250px,0,0);
 }
 
 /* Search Results */
@@ -233,10 +180,10 @@ h4 input.inline {
 .grid-card {
   width: calc(50% - 1rem);
   margin: 0.5rem 0;
-  padding-top: 1rem;
   cursor: pointer;
   transition: 0.3s ease;
   background-color: #ffffff;
+  outline: none;
 }
 
 .grid-card:hover {
@@ -248,8 +195,9 @@ h4 input.inline {
 }
 
 .grid-card-image {
-  width: 100%;
-  height: 350px;
+  width: calc(100% - 4rem);
+  height: calc(350px - 4rem);
+  margin: 2rem 2rem 1rem;
   display: flex;
   justify-content: center;
   background-size: contain;
@@ -308,9 +256,92 @@ td, th {
   text-align: center;
 }
 
+td .social-icon-group {
+  width: 200px;
+  margin: 0 auto;
+}
+
+td .social-icon-group img {
+  width: 25px;
+  height: 25px;
+  margin: 0 1.25rem;
+  transition: 0.2s ;
+}
+
 .headshot-cell {
   height: 100px;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+
+/* Actor Detail Modal */
+.modal-container {
+  position: fixed;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+}
+
+.modal-container.visible {
+  pointer-events: auto;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.modal-container * {
+  transition: 0.4s;
+}
+
+.modal-container .modal-window {
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, 1);
+  width: 50%;
+  padding: 1rem;
+  display: flex;
+  box-shadow: -2px 4px 8px 0 rgba(0, 0, 0, 1);
+  pointer-events: none;
+}
+
+.modal-container.visible .modal-window {
+  visibility: visible;
+  pointer-events: initial;
+  cursor: default !important;
+}
+
+.modal-window .headshot-container {
+  width: 300px;
+  height: 420px;
+  background-size: cover;
+  position: center;
+}
+
+.modal-window .right-side {
+  padding-left: 1rem;  
+}
+
+.modal-window .right-side h1 {
+  margin-top: 0;
+}
+
+.modal-window .social-icon-group img {
+  width: 30px;
+  height: 30px;
+  margin: 0 0.5rem;
+  transition: 0.2s ;
+  pointer-events: auto;
+}
+
+.modal-window .social-icon-group a:first-child img {
+  margin-left: 0;
 }

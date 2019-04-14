@@ -1,10 +1,10 @@
-import SquareHeadshot from '../img/square-headshot.jpg';
-import TallHeadshot from '../img/tall-headshot.jpg';
-import WideHeadshot from '../img/wide-headshot.jpg';
+import DogPic from '../img/dog-pic.jpg';
+import DogPortrait from '../img/dog-portrait.jpg';
 
 export default [
   {
-    headshot: SquareHeadshot,
+    id: 0,
+    headshot: DogPic,
     firstName: 'John',
     lastName: 'Doe',
     socialMedia: {
@@ -15,7 +15,8 @@ export default [
     },
   },
   {
-    headshot: TallHeadshot,
+    id: 1,
+    headshot: DogPortrait,
     firstName: 'Jenna',
     lastName: 'Schmidt',
     socialMedia: {
@@ -25,7 +26,8 @@ export default [
     },
   },
   {
-    headshot: WideHeadshot,
+    id: 2,
+    headshot: DogPic,
     firstName: 'Jane',
     lastName: 'Smith',
     socialMedia: {
@@ -36,7 +38,8 @@ export default [
     },
   },
   {
-    headshot: TallHeadshot,
+    id: 3,
+    headshot: DogPic,
     firstName: 'Jenny',
     lastName: 'Shmitz',
     socialMedia: {
@@ -47,7 +50,8 @@ export default [
     },
   },
   {
-    headshot: WideHeadshot,
+    id: 4,
+    headshot: DogPortrait,
     firstName: 'Janet',
     lastName: 'Smith',
     socialMedia: {
@@ -58,7 +62,8 @@ export default [
     },
   },
   {
-    headshot: SquareHeadshot,
+    id: 5,
+    headshot: DogPortrait,
     firstName: 'Johnny',
     lastName: 'Doe',
     socialMedia: {
