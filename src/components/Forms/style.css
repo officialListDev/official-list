@@ -33,6 +33,10 @@ label.checklist-label {
   align-items: center;
 }
 
+label.checklist-label.full-width {
+  width: 100%;
+}
+
 input[type="checkbox"] {
   margin-right: 5px;
   margin-top: 0;

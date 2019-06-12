@@ -1,5 +1,5 @@
-import Home from './containers/Home';
-import Search from './containers/Search/index';
+import Home from './containers/Home'
+import Search from './containers/Search/index'
 
 export default [
   {
@@ -15,4 +15,4 @@ export default [
     path: '/other',
     component: Search,
   },
-];
+]

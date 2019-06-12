@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default () => (
   <ul>
@@ -13,4 +13,4 @@ export default () => (
       <Link to="/topics">Topics</Link>
     </li>
   </ul>
-);
+)

@@ -1,14 +1,9 @@
-import React from 'react';
-import exact from 'prop-types-exact';
-import { bool, func } from 'prop-types';
-import ListIcon from '../../img/list.svg';
-import GridIcon from '../../img/grid.svg';
-import SearchBox from './SearchBox';
-
-const propTypes = exact({
-  showFilters: bool.isRequired,
-  toggleViewMode: func.isRequired,
-});
+import React from 'react'
+import exact from 'prop-types-exact'
+import { bool, func } from 'prop-types'
+import ListIcon from '../../img/list.svg'
+import GridIcon from '../../img/grid.svg'
+import SearchBox from './SearchBox'
 
 const SearchHeader = ({ showFilters, toggleViewMode }) => (
   <div className={showFilters ? 'top-row' : 'top-row expanded'}>
@@ -29,8 +24,11 @@ const SearchHeader = ({ showFilters, toggleViewMode }) => (
       </button>
     </div>
   </div>
-);
+)
 
-SearchHeader.propTypes = propTypes;
+SearchHeader.propTypes = exact({
+  showFilters: bool.isRequired,
+  toggleViewMode: func.isRequired,
+})
 
-export default SearchHeader;
+export default SearchHeader

@@ -1,13 +1,6 @@
-import React from 'react';
-import { func, string, bool } from 'prop-types';
-import exact from 'prop-types-exact';
-
-const propTypes = exact({
-  handleClick: func.isRequired,
-  toggleState: bool.isRequired,
-  buttonId: string.isRequired,
-  labelName: string.isRequired,
-});
+import React from 'react'
+import { func, string, bool } from 'prop-types'
+import exact from 'prop-types-exact'
 
 const VerticalButton = ({
   buttonId, handleClick, toggleState, labelName,
@@ -27,8 +20,13 @@ const VerticalButton = ({
       ))}
     </p>
   </button>
-);
+)
 
-VerticalButton.propTypes = propTypes;
+VerticalButton.propTypes = exact({
+  handleClick: func.isRequired,
+  toggleState: bool.isRequired,
+  buttonId: string.isRequired,
+  labelName: string.isRequired,
+})
 
-export default VerticalButton;
+export default VerticalButton

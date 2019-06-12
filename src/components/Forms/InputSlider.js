@@ -1,20 +1,6 @@
-import React from 'react';
-import { func, number, string } from 'prop-types';
-import exact from 'prop-types-exact';
-
-const propTypes = exact({
-  labelName: string.isRequired,
-  inputName: string.isRequired,
-  inputValue: number.isRequired,
-  handleChange: func.isRequired,
-  min: number.isRequired,
-  max: number.isRequired,
-  step: number,
-});
-
-const defaultProps = {
-  step: 1,
-};
+import React from 'react'
+import { func, number, string } from 'prop-types'
+import exact from 'prop-types-exact'
 
 const SliderInput = ({
   labelName, inputName, inputValue, handleChange, min, max, step,
@@ -36,9 +22,20 @@ const SliderInput = ({
       onChange={e => handleChange(e.target.value)}
     />
   </label>
-);
+)
 
-SliderInput.propTypes = propTypes;
-SliderInput.defaultProps = defaultProps;
+SliderInput.propTypes = exact({
+  labelName: string.isRequired,
+  inputName: string.isRequired,
+  inputValue: number.isRequired,
+  handleChange: func.isRequired,
+  min: number.isRequired,
+  max: number.isRequired,
+  step: number,
+})
 
-export default SliderInput;
+SliderInput.defaultProps = {
+  step: 1,
+}
+
+export default SliderInput

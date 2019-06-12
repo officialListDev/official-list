@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { bool } from 'prop-types';
-import exact from 'prop-types-exact';
-import './style.css';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { bool } from 'prop-types'
+import exact from 'prop-types-exact'
+import './style.css'
 
 const propTypes = exact({
   isOpen: bool,
-});
+})
 
 const Sidebar = ({ isOpen }) => (
   <aside id="sidebar" className={`${isOpen ? 'expanded' : ''}`}>
@@ -24,12 +24,12 @@ const Sidebar = ({ isOpen }) => (
       </ul>
     </nav>
   </aside>
-);
+)
 
-Sidebar.propTypes = propTypes;
+Sidebar.propTypes = propTypes
 
 Sidebar.defaultProps = {
   isOpen: false,
-};
+}
 
-export default Sidebar;
+export default Sidebar

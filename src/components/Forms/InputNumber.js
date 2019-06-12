@@ -1,19 +1,6 @@
-import React from 'react';
-import { number, func, string } from 'prop-types';
-import exact from 'prop-types-exact';
-
-const propTypes = exact({
-  inputValue: number.isRequired,
-  inputName: string.isRequired,
-  className: string,
-  handleChange: func.isRequired,
-  min: number.isRequired,
-  max: number.isRequired,
-});
-
-const defaultProps = {
-  className: '',
-};
+import React from 'react'
+import { number, func, string } from 'prop-types'
+import exact from 'prop-types-exact'
 
 const InputNumber = ({
   inputValue, inputName, className, handleChange, min, max,
@@ -28,10 +15,19 @@ const InputNumber = ({
     value={inputValue}
     onChange={e => handleChange(e.target.value)}
   />
-);
+)
 
-InputNumber.defaultProps = defaultProps;
+InputNumber.propTypes = exact({
+  inputValue: number.isRequired,
+  inputName: string.isRequired,
+  className: string,
+  handleChange: func.isRequired,
+  min: number.isRequired,
+  max: number.isRequired,
+})
 
-InputNumber.propTypes = propTypes;
+InputNumber.defaultProps = {
+  className: '',
+}
 
-export default InputNumber;
+export default InputNumber

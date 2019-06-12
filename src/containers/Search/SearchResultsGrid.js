@@ -1,30 +1,13 @@
-import React from 'react';
-import exact from 'prop-types-exact';
+import React from 'react'
+import exact from 'prop-types-exact'
 import {
   arrayOf, shape, bool, string, number, func,
-} from 'prop-types';
-import ExternalLink from '../../components/Utility/ExternalLink';
-import InstagramIcon from '../../img/instagram.svg';
-import FacebookIcon from '../../img/facebook.svg';
-import YoutubeIcon from '../../img/youtube.svg';
-import TwitterIcon from '../../img/twitter.svg';
-
-const propTypes = exact({
-  showFilters: bool.isRequired,
-  results: arrayOf(shape({
-    id: number.isRequired,
-    headshot: string.isRequired,
-    firstName: string.isRequired,
-    lastName: string.isRequired,
-    socialMedia: shape({
-      instagram: string,
-      facebook: string,
-      youtube: string,
-      twitter: string,
-    }).isRequired,
-  })).isRequired,
-  openActorDetail: func.isRequired,
-});
+} from 'prop-types'
+import ExternalLink from '../../components/Utility/ExternalLink'
+import InstagramIcon from '../../img/instagram.svg'
+import FacebookIcon from '../../img/facebook.svg'
+import YoutubeIcon from '../../img/youtube.svg'
+import TwitterIcon from '../../img/twitter.svg'
 
 const SearchResultsGrid = ({ results, showFilters, openActorDetail }) => (
   results.map(result => (
@@ -52,8 +35,23 @@ const SearchResultsGrid = ({ results, showFilters, openActorDetail }) => (
       </div>
     </div>
   ))
-);
+)
 
-SearchResultsGrid.propTypes = propTypes;
+SearchResultsGrid.propTypes = exact({
+  showFilters: bool.isRequired,
+  results: arrayOf(shape({
+    id: number.isRequired,
+    headshot: string.isRequired,
+    firstName: string.isRequired,
+    lastName: string.isRequired,
+    socialMedia: shape({
+      instagram: string,
+      facebook: string,
+      youtube: string,
+      twitter: string,
+    }).isRequired,
+  })).isRequired,
+  openActorDetail: func.isRequired,
+})
 
-export default SearchResultsGrid;
+export default SearchResultsGrid

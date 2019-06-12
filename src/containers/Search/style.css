@@ -233,7 +233,7 @@
   opacity: 0.7;
 }
 
-table {
+.results-list {
   width: 100%;
   border: 1px solid #8E8E93;
   background-color: #ffffff;
@@ -251,9 +251,18 @@ table {
   background: rgba(67, 197, 196, 0.15);
 }
 
-td, th {
-  padding: 0.5rem;
+th {
+  padding: 1rem;
   text-align: center;
+}
+
+td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.name-cell {
+  padding-left: 4rem;
 }
 
 td .social-icon-group {
@@ -269,79 +278,8 @@ td .social-icon-group img {
 }
 
 .headshot-cell {
-  height: 100px;
+  height: 135px;
   background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-
-/* Actor Detail Modal */
-.modal-container {
-  position: fixed;
-  z-index: 999999;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  background-color: rgba(0, 0, 0, 0.8);
-  opacity: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.4s;
-}
-
-.modal-container.visible {
-  pointer-events: auto;
-  opacity: 1;
-  cursor: pointer;
-}
-
-.modal-container * {
-  transition: 0.4s;
-}
-
-.modal-container .modal-window {
-  visibility: hidden;
-  background-color: rgba(255, 255, 255, 1);
-  width: 50%;
-  padding: 1rem;
-  display: flex;
-  box-shadow: -2px 4px 8px 0 rgba(0, 0, 0, 1);
-  pointer-events: none;
-}
-
-.modal-container.visible .modal-window {
-  visibility: visible;
-  pointer-events: initial;
-  cursor: default !important;
-}
-
-.modal-window .headshot-container {
-  width: 300px;
-  height: 420px;
   background-size: cover;
-  position: center;
-}
-
-.modal-window .right-side {
-  padding-left: 1rem;  
-}
-
-.modal-window .right-side h1 {
-  margin-top: 0;
-}
-
-.modal-window .social-icon-group img {
-  width: 30px;
-  height: 30px;
-  margin: 0 0.5rem;
-  transition: 0.2s ;
-  pointer-events: auto;
-}
-
-.modal-window .social-icon-group a:first-child img {
-  margin-left: 0;
+  background-repeat: no-repeat;
 }

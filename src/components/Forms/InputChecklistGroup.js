@@ -1,20 +1,15 @@
-import React from 'react';
-import { string, func, arrayOf } from 'prop-types';
-import exact from 'prop-types-exact';
-
-const propTypes = exact({
-  checklistName: string.isRequired,
-  checklistItems: arrayOf(string).isRequired,
-  activeStateKey: string.isRequired,
-  updateFilterState: func.isRequired,
-});
+import React from 'react'
+import {
+  string, func, arrayOf, bool,
+} from 'prop-types'
+import exact from 'prop-types-exact'
 
 const InputChecklistGroup = ({
-  checklistName, checklistItems, activeStateKey, updateFilterState,
+  checklistName, checklistItems, activeStateKey, updateFilterState, onePerLine,
 }) => (
   <div className="checklist-group">
     {checklistItems.map(checklistItem => (
-      <label key={checklistItem} className="checklist-label" htmlFor={`${checklistName}-${checklistItem}`}>
+      <label key={checklistItem} className={`checklist-label${onePerLine ? ' full-width' : ''}`} htmlFor={`${checklistName}-${checklistItem}`}>
         <input
           id={`${checklistName}-${checklistItem}`}
           type="checkbox"
@@ -25,8 +20,18 @@ const InputChecklistGroup = ({
       </label>
     ))}
   </div>
-);
+)
 
-InputChecklistGroup.propTypes = propTypes;
+InputChecklistGroup.propTypes = exact({
+  checklistName: string.isRequired,
+  checklistItems: arrayOf(string).isRequired,
+  activeStateKey: string.isRequired,
+  updateFilterState: func.isRequired,
+  onePerLine: bool,
+})
 
-export default InputChecklistGroup;
+InputChecklistGroup.defaultProps = {
+  onePerLine: false,
+}
+
+export default InputChecklistGroup

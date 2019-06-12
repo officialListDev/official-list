@@ -1,5 +1,5 @@
-import React from 'react';
-import SearchIcon from '../../img/search.svg';
+import React from 'react'
+import SearchIcon from '../../img/search.svg'
 
 const SearchBox = () => (
   <form id="search-form">
@@ -8,6 +8,6 @@ const SearchBox = () => (
       <img src={SearchIcon} alt="search" />
     </button>
   </form>
-);
+)
 
-export default SearchBox;
+export default SearchBox

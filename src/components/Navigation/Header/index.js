@@ -1,14 +1,14 @@
-import React from 'react';
-import { bool, func } from 'prop-types';
-import exact from 'prop-types-exact';
-import '../../../../node_modules/hamburgers/dist/hamburgers.css';
-import './style.css';
-import Logo from '../../../img/logo.png';
+import React from 'react'
+import { bool, func } from 'prop-types'
+import exact from 'prop-types-exact'
+import '../../../../node_modules/hamburgers/dist/hamburgers.css'
+import './style.css'
+import Logo from '../../../img/logo.png'
 
 const propTypes = exact({
   isSidebarOpen: bool.isRequired,
   toggleSidebar: func.isRequired,
-});
+})
 
 const Header = ({ isSidebarOpen, toggleSidebar }) => (
   <header>
@@ -37,8 +37,8 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => (
       </div>
     </div>
   </header>
-);
+)
 
-Header.propTypes = propTypes;
+Header.propTypes = propTypes
 
-export default Header;
+export default Header

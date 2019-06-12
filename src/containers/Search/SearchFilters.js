@@ -1,35 +1,20 @@
-import React from 'react';
-import exact from 'prop-types-exact';
+import React from 'react'
+import exact from 'prop-types-exact'
 import {
   func, bool, number, shape,
-} from 'prop-types';
-import InputSlider from '../../components/Forms/InputSlider';
-import InputNumber from '../../components/Forms/InputNumber';
-import InputChecklistGroup from '../../components/Forms/InputChecklistGroup';
-import ButtonVerticalToggle from '../../components/Forms/ButtonVerticalToggle';
-import '../../components/Forms/style.css';
+} from 'prop-types'
+import InputSlider from '../../components/Forms/InputSlider'
+import InputChecklistGroup from '../../components/Forms/InputChecklistGroup'
+import ButtonVerticalToggle from '../../components/Forms/ButtonVerticalToggle'
+import '../../components/Forms/style.css'
 
-const propTypes = exact({
-  showFilters: bool.isRequired,
-  minAge: number.isRequired,
-  maxAge: number.isRequired,
-  height: shape({
-    feet: number.isRequired,
-    inches: number.isRequired,
-  }).isRequired,
-  weight: number.isRequired,
-  toggleFilters: func.isRequired,
-  updateMinAge: func.isRequired,
-  updateMaxAge: func.isRequired,
-  updateHeightFeet: func.isRequired,
-  updateHeightInches: func.isRequired,
-  updateWeight: func.isRequired,
-  updateFilterState: func.isRequired,
-});
+const instruments = ['drums', 'trumpet', 'horn', 'guitar', 'piano', 'accordion']
 
-const eyeColors = ['green', 'blue', 'gray', 'hazel', 'brown'];
+const voiceRanges = ['soprano', 'mezzo-soprano', 'contralto', 'countertenor', 'tenor', 'baritone', 'bass']
 
-const hairColors = ['blonde', 'brown', 'black', 'red', 'gray', 'white'];
+// const eyeColors = ['green', 'blue', 'gray', 'hazel', 'brown']
+
+// const hairColors = ['blonde', 'brown', 'black', 'red', 'gray', 'white']
 
 const SearchFilters = (
   {
@@ -42,8 +27,6 @@ const SearchFilters = (
     height,
     updateHeightFeet,
     updateHeightInches,
-    weight,
-    updateWeight,
     updateFilterState,
   },
 ) => (
@@ -63,19 +46,13 @@ const SearchFilters = (
           <InputSlider inputName="height-feet" labelName="Feet:" inputValue={height.feet} handleChange={updateHeightFeet} min={2} max={7} />
           <InputSlider inputName="height-inches" labelName="Inches:" inputValue={height.inches} handleChange={updateHeightInches} min={0} max={11} />
         </div>
-        <div id="weight-group">
-          <h4>
-            Weight (lbs):
-            <InputNumber className="inline" inputName="weight" inputValue={weight} min={1} max={350} handleChange={updateWeight} />
-          </h4>
+        <div id="instruments-group">
+          <h4>Instruments:</h4>
+          <InputChecklistGroup checklistName="instruments" activeStateKey="instruments" checklistItems={instruments} updateFilterState={updateFilterState} />
         </div>
-        <div id="eye-color-group">
-          <h4>Eye Color:</h4>
-          <InputChecklistGroup checklistName="eye" activeStateKey="eyeColors" checklistItems={eyeColors} updateFilterState={updateFilterState} />
-        </div>
-        <div id="hair-color-group">
-          <h4>Hair Color:</h4>
-          <InputChecklistGroup checklistName="hair" activeStateKey="hairColors" checklistItems={hairColors} updateFilterState={updateFilterState} />
+        <div id="voice-group">
+          <h4>Voice Range:</h4>
+          <InputChecklistGroup checklistName="voiceRange" activeStateKey="voiceRange" checklistItems={voiceRanges} updateFilterState={updateFilterState} onePerLine />
         </div>
       </form>
     </div>
@@ -84,8 +61,22 @@ const SearchFilters = (
     </button>
     <ButtonVerticalToggle buttonId="toggle-filters" toggleState={showFilters} handleClick={toggleFilters} labelName="Filters" />
   </aside>
-);
+)
 
-SearchFilters.propTypes = propTypes;
+SearchFilters.propTypes = exact({
+  showFilters: bool.isRequired,
+  minAge: number.isRequired,
+  maxAge: number.isRequired,
+  height: shape({
+    feet: number.isRequired,
+    inches: number.isRequired,
+  }).isRequired,
+  toggleFilters: func.isRequired,
+  updateMinAge: func.isRequired,
+  updateMaxAge: func.isRequired,
+  updateHeightFeet: func.isRequired,
+  updateHeightInches: func.isRequired,
+  updateFilterState: func.isRequired,
+})
 
-export default SearchFilters;
+export default SearchFilters

@@ -1,30 +1,14 @@
-import React from 'react';
-import exact from 'prop-types-exact';
+import React from 'react'
+import exact from 'prop-types-exact'
 import {
   number, arrayOf, string, shape, func,
-} from 'prop-types';
-import ExternalLink from '../../components/Utility/ExternalLink';
-import Button from '../../components/Forms/Button';
-import InstagramIcon from '../../img/instagram.svg';
-import FacebookIcon from '../../img/facebook.svg';
-import YoutubeIcon from '../../img/youtube.svg';
-import TwitterIcon from '../../img/twitter.svg';
-
-const propTypes = exact({
-  results: arrayOf(shape({
-    id: number.isRequired,
-    firstName: string.isRequired,
-    lastName: string.isRequired,
-    headshot: string.isRequired,
-    socialMedia: shape({
-      instagram: string,
-      facebook: string,
-      youtube: string,
-      twitter: string,
-    }).isRequired,
-  })).isRequired,
-  openActorDetail: func.isRequired,
-});
+} from 'prop-types'
+import ExternalLink from '../../components/Utility/ExternalLink'
+import Button from '../../components/Forms/Button'
+import InstagramIcon from '../../img/instagram.svg'
+import FacebookIcon from '../../img/facebook.svg'
+import YoutubeIcon from '../../img/youtube.svg'
+import TwitterIcon from '../../img/twitter.svg'
 
 const SearchResultsList = ({ results, openActorDetail }) => (
   <table className="results-list" cellSpacing="0">
@@ -43,7 +27,7 @@ const SearchResultsList = ({ results, openActorDetail }) => (
           onClick={() => openActorDetail(result.id)}
         >
           <td><div className="headshot-cell" style={{ backgroundImage: `url(${result.headshot})` }} /></td>
-          <td>
+          <td className="name-cell">
             {result.firstName}
             &nbsp;
             {result.lastName}
@@ -63,8 +47,22 @@ const SearchResultsList = ({ results, openActorDetail }) => (
       ))}
     </tbody>
   </table>
-);
+)
 
-SearchResultsList.propTypes = propTypes;
+SearchResultsList.propTypes = exact({
+  results: arrayOf(shape({
+    id: number.isRequired,
+    firstName: string.isRequired,
+    lastName: string.isRequired,
+    headshot: string.isRequired,
+    socialMedia: shape({
+      instagram: string,
+      facebook: string,
+      youtube: string,
+      twitter: string,
+    }).isRequired,
+  })).isRequired,
+  openActorDetail: func.isRequired,
+})
 
-export default SearchResultsList;
+export default SearchResultsList
