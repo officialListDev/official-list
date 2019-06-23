@@ -1,5 +1,5 @@
-import DogPic from '../img/dog-pic.jpg';
-import DogPortrait from '../img/dog-portrait.jpg';
+const DogPic = '/static/img/dog-pic.jpg'
+const DogPortrait = '/static/img/dog-portrait.jpg'
 
 export default [
   {
@@ -73,4 +73,4 @@ export default [
       twitter: 'https://twitter.com',
     },
   },
-];
+]

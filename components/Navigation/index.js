@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import { object as obj } from 'prop-types'
-import exact from 'prop-types-exact'
+import Router from 'next/router'
 import NavigationHeader from './Header/index'
 import NavigationSidebar from './Sidebar/index'
 
@@ -10,11 +8,16 @@ class Navigation extends Component {
     isSidebarOpen: false,
   }
 
-  componentDidMount() {
-    const { history } = this.props
-    history.listen(() => {
-      this.toggleSidebar(false)
-    })
+  handleRouteChange = () => {
+    this.toggleSidebar(false)
+  }
+  
+  componentDidMount () {
+    Router.events.on('routeChangeComplete', this.handleRouteChange)
+  }
+
+  componentWillUnmount () {
+    Router.events.off('routeChangeComplete', this.handleRouteChange)
   }
 
   toggleSidebar = (bool) => {
@@ -23,7 +26,7 @@ class Navigation extends Component {
     })
   }
 
-  render() {
+  render () {
     const { isSidebarOpen } = this.state
     return (
       <div id="nav-root">
@@ -34,11 +37,4 @@ class Navigation extends Component {
   }
 }
 
-Navigation.propTypes = exact({
-  history: obj.isRequired,
-  match: obj,
-  location: obj,
-  staticContext: obj,
-})
-
-export default withRouter(Navigation)
+export default Navigation

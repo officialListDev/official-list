@@ -1,30 +1,26 @@
 import React, { Component } from 'react'
-import './style.css'
-import SearchHeader from './SearchHeader'
-import SearchFilters from './SearchFilters'
-import SearchResults from './SearchResults'
-import results from '../../mocks/search-results'
-import ActorDetail from '../../components/Actor/ActorDetail'
+import SearchHeader from '../components/Search/SearchHeader'
+import SearchFilters from '../components/Search/SearchFilters'
+import SearchResults from '../components/Search/SearchResults'
+import results from '../mocks/search-results'
+import ActorDetail from '../components/Actor/ActorDetail'
 
 class Search extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      viewMode: 'list',
-      searchResults: results,
-      showFilters: true,
-      minAge: 25,
-      maxAge: 34,
-      height: {
-        feet: 5,
-        inches: 8,
-      },
-      weight: 160,
-      eyeColors: [],
-      hairColors: [],
-      showActorDetail: true,
-      activeActor: results[0],
-    }
+  state = {
+    viewMode: 'list',
+    searchResults: results,
+    showFilters: true,
+    minAge: 25,
+    maxAge: 34,
+    height: {
+      feet: 5,
+      inches: 8,
+    },
+    weight: 160,
+    eyeColors: [],
+    hairColors: [],
+    showActorDetail: true,
+    activeActor: results[0],
   }
 
   closeActorDetail = () => {
@@ -102,7 +98,7 @@ class Search extends Component {
     this.setState(newState)
   }
 
-  render() {
+  render () {
     const {
       viewMode,
       searchResults,
@@ -139,6 +135,17 @@ class Search extends Component {
           closeActorDetail={this.closeActorDetail}
           activeActor={activeActor}
         />
+        <style jsx>{`
+          #search-root {
+            padding: 7.5rem 2rem 2rem calc(250px + 2rem);
+            transition: 0.3s ease;
+            background: rgba(67, 197, 196, 0.3);
+          }
+
+          #search-root.expanded {
+            padding: 7.5rem 2rem 2rem 2rem;
+          }
+        `}</style>
       </div>
     )
   }

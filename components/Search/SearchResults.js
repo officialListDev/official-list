@@ -12,6 +12,15 @@ const SearchResults = ({
   <div id="results-container">
     {viewMode === 'grid' && <SearchResultsGrid results={results} showFilters={showFilters} openActorDetail={openActorDetail} />}
     {viewMode === 'list' && <SearchResultsList results={results} openActorDetail={openActorDetail} />}
+    <style jsx>{`
+      #results-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+        width: 100%;
+      }
+    `}</style>
   </div>
 )
 
