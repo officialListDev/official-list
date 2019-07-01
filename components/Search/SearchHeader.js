@@ -1,22 +1,24 @@
 import React from 'react'
 import exact from 'prop-types-exact'
 import { bool, func } from 'prop-types'
+import { SearchViewModes } from '../../actions'
+const { GRID, LIST } = SearchViewModes
 import SearchBox from './SearchBox'
 
-const SearchHeader = ({ showFilters, toggleViewMode }) => (
-  <div className={showFilters ? 'top-row' : 'top-row expanded'}>
+const SearchHeader = ({ shouldShowFilters, toggleViewMode }) => (
+  <div className={shouldShowFilters ? 'top-row' : 'top-row expanded'}>
     <SearchBox />
     <div id="view-as">
       <p>View As:</p>
       <button
         type="button"
-        onClick={() => toggleViewMode('list')}
+        onClick={() => toggleViewMode(LIST)}
       >
         <img src="/static/img/list.svg" alt="list" />
       </button>
       <button
         type="button"
-        onClick={() => toggleViewMode('grid')}
+        onClick={() => toggleViewMode(GRID)}
       >
         <img src="/static/img/grid.svg" alt="grid" />
       </button>
@@ -73,7 +75,7 @@ const SearchHeader = ({ showFilters, toggleViewMode }) => (
 )
 
 SearchHeader.propTypes = exact({
-  showFilters: bool.isRequired,
+  shouldShowFilters: bool.isRequired,
   toggleViewMode: func.isRequired,
 })
 

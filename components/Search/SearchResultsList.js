@@ -20,7 +20,7 @@ const SearchResultsList = ({ results, openActorDetail }) => (
         <tr
           className="row"
           key={`${result.firstName}-${result.lastName}`}
-          onClick={() => openActorDetail(result.id)}
+          onClick={() => openActorDetail(result)}
         >
           <td><div className="headshot-cell" style={{ backgroundImage: `url(${result.headshot})` }} /></td>
           <td className="name-cell">

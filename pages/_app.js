@@ -1,36 +1,18 @@
 import React from 'react'
-// import Head from 'next/head'
 import App, { Container } from 'next/app'
+import { Provider } from 'react-redux'
+import withReduxStore from '../lib/with-redux-store'
 import Navigation from '../components/Navigation/index'
-// import Footer from '../components/Footer'
-
-// const analyticsScript = () => `
-//   window.dataLayer = window.dataLayer || [];
-//   function gtag(){dataLayer.push(arguments);}
-//   gtag('js', new Date());
-//   gtag('config', 'UA-63289747-4');
-// `
 
 class MyApp extends App {
-  static async getInitialProps ({ Component, ctx }) {
-    let pageProps = {}
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
-    }
-    return { pageProps }
-  }
-
   render () {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, reduxStore } = this.props
     return (
       <Container>
-        {/* <Head>
-          <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css?family=Open+Sans:600&display=swap" rel="stylesheet" />
-        </Head> */}
         <Navigation />
-        <Component {...pageProps} />
-        {/* <Footer /> */}
+        <Provider store={reduxStore}>
+          <Component {...pageProps} />
+        </Provider>
         <style jsx global>{`
           body {
             margin: 0;
@@ -753,4 +735,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp
+export default withReduxStore(MyApp)

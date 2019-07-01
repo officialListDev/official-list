@@ -10,8 +10,8 @@ const SearchResultsGrid = ({ results, showFilters, openActorDetail }) => (
     <div
       className={showFilters ? 'grid-card' : 'grid-card compact'}
       key={`${result.firstName}-${result.lastName}`}
-      onClick={() => openActorDetail(result.id)}
-      onKeyPress={() => openActorDetail(result.id)}
+      onClick={() => openActorDetail(result)}
+      onKeyPress={() => openActorDetail(result)}
       role="button"
       tabIndex="0"
     >

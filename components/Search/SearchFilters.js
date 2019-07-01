@@ -1,10 +1,10 @@
 import React from 'react'
 import exact from 'prop-types-exact'
 import {
-  func, bool, number, shape,
+  func, bool, number, shape, arrayOf, string,
 } from 'prop-types'
 import InputSlider from '../../components/Forms/InputSlider'
-import InputChecklistGroup from '../../components/Forms/InputChecklistGroup'
+import InputCheckboxGroup from '../../components/Forms/InputCheckboxGroup'
 import ButtonVerticalToggle from '../../components/Forms/ButtonVerticalToggle'
 
 const instruments = ['drums', 'trumpet', 'horn', 'guitar', 'piano', 'accordion']
@@ -13,22 +13,27 @@ const voiceRanges = ['soprano', 'mezzo-soprano', 'contralto', 'countertenor', 't
 
 const SearchFilters = (
   {
-    showFilters,
-    toggleFilters,
-    minAge,
-    updateMinAge,
-    maxAge,
-    updateMaxAge,
+    activeInstruments,
+    activeVoiceRanges,
+    addInstrument,
+    addVoiceRange,
     height,
+    minAge,
+    maxAge,
+    removeInstrument,
+    removeVoiceRange,
+    shouldShowFilters,
+    toggleFilters,
+    updateMaxAge,
+    updateMinAge,
     updateHeightFeet,
     updateHeightInches,
-    updateFilterState,
   },
 ) => (
   <aside>
     <div
       id="search-filters"
-      className={showFilters ? '' : 'hidden'}
+      className={shouldShowFilters ? '' : 'hidden'}
     >
       <form>
         <div id="age-range" className="slider-container">
@@ -43,18 +48,31 @@ const SearchFilters = (
         </div>
         <div id="instruments-group">
           <h4>Instruments:</h4>
-          <InputChecklistGroup checklistName="instruments" activeStateKey="instruments" checklistItems={instruments} updateFilterState={updateFilterState} />
+          <InputCheckboxGroup
+            activeList={activeInstruments}
+            addToActiveList={addInstrument}
+            checkboxes={instruments}
+            groupName="instruments"
+            removeFromActiveList={removeInstrument}
+          />
         </div>
         <div id="voice-group">
           <h4>Voice Range:</h4>
-          <InputChecklistGroup checklistName="voiceRange" activeStateKey="voiceRange" checklistItems={voiceRanges} updateFilterState={updateFilterState} onePerLine />
+          <InputCheckboxGroup
+            activeList={activeVoiceRanges}
+            addToActiveList={addVoiceRange}
+            checkboxes={voiceRanges}
+            groupName="voiceRange"
+            onePerLine
+            removeFromActiveList={removeVoiceRange}
+          />
         </div>
       </form>
     </div>
-    <button type="button" id="apply-filters" className={showFilters ? '' : 'hidden'}>
+    <button type="button" id="apply-filters" className={shouldShowFilters ? '' : 'hidden'}>
       Apply
     </button>
-    <ButtonVerticalToggle buttonId="toggle-filters" toggleState={showFilters} handleClick={toggleFilters} labelName="Filters" />
+    <ButtonVerticalToggle buttonId="toggle-filters" toggleState={shouldShowFilters} handleClick={toggleFilters} labelName="Filters" />
     <style jsx>{`
       #search-filters {
         position: fixed;
@@ -243,19 +261,24 @@ const SearchFilters = (
 )
 
 SearchFilters.propTypes = exact({
-  showFilters: bool.isRequired,
-  minAge: number.isRequired,
-  maxAge: number.isRequired,
+  activeInstruments: arrayOf(string).isRequired,
+  activeVoiceRanges: arrayOf(string).isRequired,
+  addInstrument: func.isRequired,
+  addVoiceRange: func.isRequired,
   height: shape({
     feet: number.isRequired,
     inches: number.isRequired,
   }).isRequired,
+  minAge: number.isRequired,
+  maxAge: number.isRequired,
+  removeInstrument: func.isRequired,
+  removeVoiceRange: func.isRequired,
+  shouldShowFilters: bool.isRequired,
   toggleFilters: func.isRequired,
   updateMinAge: func.isRequired,
   updateMaxAge: func.isRequired,
   updateHeightFeet: func.isRequired,
   updateHeightInches: func.isRequired,
-  updateFilterState: func.isRequired,
 })
 
 export default SearchFilters

@@ -5,9 +5,9 @@ import {
 import exact from 'prop-types-exact'
 import ExternalLink from '../Utility/ExternalLink'
 
-const ActorDetail = ({ showActorDetail, closeActorDetail, activeActor }) => (
+const ActorDetail = ({ shouldShow, closeActorDetail, activeActor }) => (
   <div
-    className={`modal-container${showActorDetail ? ' visible' : ''}`}
+    className={`modal-container${shouldShow ? ' visible' : ''}`}
     onClick={closeActorDetail}
     onKeyPress={closeActorDetail}
     role="button"
@@ -20,10 +20,10 @@ const ActorDetail = ({ showActorDetail, closeActorDetail, activeActor }) => (
       role="button"
       tabIndex="0"
     >
-      <div
+      {activeActor && <div
         className="headshot-container"
         style={{ backgroundImage: `url(${activeActor.headshot})` }}
-      />
+      />}
       <div className="right-side">
         {activeActor
           && (
@@ -111,7 +111,7 @@ const ActorDetail = ({ showActorDetail, closeActorDetail, activeActor }) => (
 )
 
 ActorDetail.propTypes = exact({
-  showActorDetail: bool.isRequired,
+  shouldShow: bool.isRequired,
   closeActorDetail: func.isRequired,
   activeActor: shape({
     firstName: string.isRequired,

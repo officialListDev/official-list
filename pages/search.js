@@ -1,139 +1,83 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { string, func, bool, number, arrayOf, shape } from 'prop-types'
+import exact from 'prop-types-exact'
+import {
+  addInstrument,
+  addVoiceRange,
+  closeActorDetail,
+  openActorDetail,
+  removeInstrument,
+  removeVoiceRange,
+  toggleSearchView,
+  toggleSearchFilters,
+  updateHeightFeet,
+  updateHeightInches,
+  updateMinAge,
+  updateMaxAge,
+} from '../actions'
 import SearchHeader from '../components/Search/SearchHeader'
 import SearchFilters from '../components/Search/SearchFilters'
 import SearchResults from '../components/Search/SearchResults'
-import results from '../mocks/search-results'
 import ActorDetail from '../components/Actor/ActorDetail'
 
 class Search extends Component {
-  state = {
-    viewMode: 'list',
-    searchResults: results,
-    showFilters: true,
-    minAge: 25,
-    maxAge: 34,
-    height: {
-      feet: 5,
-      inches: 8,
-    },
-    weight: 160,
-    eyeColors: [],
-    hairColors: [],
-    showActorDetail: true,
-    activeActor: results[0],
-  }
-
-  closeActorDetail = () => {
-    this.setState({
-      showActorDetail: false,
-    })
-  }
-
-  openActorDetail = (id) => {
-    const { searchResults } = this.state
-    const result = searchResults.filter(actor => actor.id === id)
-    this.setState({
-      showActorDetail: true,
-      activeActor: result[0],
-    })
-  }
-
-  toggleViewMode = (mode) => {
-    this.setState({
-      viewMode: mode,
-    })
-  }
-
-  toggleFilters = (bool) => {
-    this.setState({
-      showFilters: bool,
-    })
-  }
-
-  updateMinAge = (age) => {
-    this.setState({
-      minAge: parseInt(age, 10),
-    })
-  }
-
-  updateMaxAge = (age) => {
-    this.setState({
-      maxAge: parseInt(age, 10),
-    })
-  }
-
-  updateHeightFeet = (feet) => {
-    const { height } = this.state
-    const { inches } = height
-    this.setState({
-      height: {
-        feet: parseInt(feet, 10),
-        inches,
-      },
-    })
-  }
-
-  updateHeightInches = (inches) => {
-    const { height } = this.state
-    const { feet } = height
-    this.setState({
-      height: {
-        feet,
-        inches: parseInt(inches, 10),
-      },
-    })
-  }
-
-  updateFilterState = (e, activeStateKey, filter) => {
-    const newState = {}
-    /* eslint-disable-next-line */
-    let newActiveFilterList = this.state[activeStateKey].slice();
-    if (e.target.checked) {
-      newActiveFilterList.push(filter)
-    } else {
-      const index = newActiveFilterList.indexOf(filter)
-      newActiveFilterList.splice(index, 1)
-    }
-    newState[activeStateKey] = newActiveFilterList
-    this.setState(newState)
-  }
-
   render () {
     const {
-      viewMode,
-      searchResults,
-      showFilters,
+      actorDetail,
+      activeInstruments,
+      activeVoiceRanges,
+      addInstrument,
+      addVoiceRange,
+      closeActorDetail,
+      heightFeet,
+      heightInches,
       minAge,
       maxAge,
-      height,
-      showActorDetail,
-      activeActor,
-    } = this.state
+      openActorDetail,
+      removeInstrument,
+      removeVoiceRange,
+      searchResults,
+      searchViewMode,
+      shouldShowSearchFilters,
+      toggleSearchView,
+      toggleSearchFilters,
+      updateHeightFeet,
+      updateHeightInches,
+      updateMinAge,
+      updateMaxAge,
+    } = this.props
     return (
-      <div id="search-root" className={showFilters ? '' : 'expanded'}>
-        <SearchHeader showFilters={showFilters} toggleViewMode={this.toggleViewMode} />
+      <div id="search-root" className={shouldShowSearchFilters ? '' : 'expanded'}>
+        <SearchHeader shouldShowFilters={shouldShowSearchFilters} toggleViewMode={toggleSearchView} />
         <SearchFilters
-          showFilters={showFilters}
+          activeInstruments={activeInstruments}
+          activeVoiceRanges={activeVoiceRanges}
+          addInstrument={addInstrument}
+          addVoiceRange={addVoiceRange}
+          height={{ feet: heightFeet, inches: heightInches }}
           minAge={minAge}
           maxAge={maxAge}
-          height={height}
-          toggleFilters={this.toggleFilters}
-          updateMinAge={this.updateMinAge}
-          updateMaxAge={this.updateMaxAge}
-          updateHeightFeet={this.updateHeightFeet}
-          updateHeightInches={this.updateHeightInches}
-          updateFilterState={this.updateFilterState}
+          removeInstrument={removeInstrument}
+          removeVoiceRange={removeVoiceRange}
+          shouldShowFilters={shouldShowSearchFilters}
+          toggleFilters={toggleSearchFilters}
+          updateMinAge={updateMinAge}
+          updateMaxAge={updateMaxAge}
+          updateHeightFeet={updateHeightFeet}
+          updateHeightInches={updateHeightInches}
         />
         <SearchResults
           results={searchResults}
-          viewMode={viewMode}
-          showFilters={showFilters}
-          openActorDetail={this.openActorDetail}
+          viewMode={searchViewMode}
+          showFilters={shouldShowSearchFilters}
+          openActorDetail={openActorDetail}
         />
         <ActorDetail
-          showActorDetail={showActorDetail}
-          closeActorDetail={this.closeActorDetail}
-          activeActor={activeActor}
+          shouldShow={actorDetail.shouldShow}
+          closeActorDetail={closeActorDetail}
+          activeActor={actorDetail.activeActor}
         />
         <style jsx>{`
           #search-root {
@@ -151,4 +95,88 @@ class Search extends Component {
   }
 }
 
-export default Search
+function mapStateToProps (state) {
+  const {
+    activeInstruments,
+    activeVoiceRanges,
+    actorDetail,
+    heightFeet,
+    heightInches,
+    maxAge,
+    minAge,
+    searchResults,
+    searchViewMode,
+    shouldShowSearchFilters,
+  } = state
+  return {
+    activeInstruments,
+    activeVoiceRanges,
+    actorDetail,
+    heightFeet,
+    heightInches,
+    maxAge,
+    minAge,
+    searchResults,
+    searchViewMode,
+    shouldShowSearchFilters,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => (
+  bindActionCreators({
+    addInstrument,
+    addVoiceRange,
+    closeActorDetail,
+    openActorDetail,
+    removeInstrument,
+    removeVoiceRange,
+    toggleSearchView,
+    toggleSearchFilters,
+    updateHeightFeet,
+    updateHeightInches,
+    updateMinAge,
+    updateMaxAge,
+  }, dispatch)
+)
+
+Search.propTypes = exact({
+  activeInstruments: arrayOf(string).isRequired,
+  activeVoiceRanges: arrayOf(string).isRequired,
+  actorDetail: shape({
+    shouldShow: bool.isRequired,
+    activeActor: shape({
+      firstName: string.isRequired,
+      lastName: string.isRequired,
+      headshot: string.isRequired,
+    }),
+  }).isRequired,
+  addInstrument: func.isRequired,
+  addVoiceRange: func.isRequired,
+  className: string.isRequired,
+  closeActorDetail: func.isRequired,
+  heightFeet: number.isRequired,
+  heightInches: number.isRequired,
+  maxAge: number.isRequired,
+  minAge: number.isRequired,
+  openActorDetail: func.isRequired,
+  removeInstrument: func.isRequired,
+  removeVoiceRange: func.isRequired,
+  searchResults: arrayOf(shape({
+    firstName: string.isRequired,
+    lastName: string.isRequired,
+    headshot: string.isRequired,
+  })).isRequired,
+  searchViewMode: string.isRequired,
+  shouldShowSearchFilters: bool.isRequired,
+  toggleSearchView: func.isRequired,
+  toggleSearchFilters: func.isRequired,
+  updateHeightFeet: func.isRequired,
+  updateHeightInches: func.isRequired,
+  updateMaxAge: func.isRequired,
+  updateMinAge: func.isRequired,
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Search)
