@@ -1,8 +1,21 @@
 import React from 'react'
 import exact from 'prop-types-exact'
 import {
-  func, bool, number, shape, arrayOf, string,
+  func, bool, number, arrayOf, string,
 } from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import {
+  addInstrument,
+  addVoiceRange,
+  removeInstrument,
+  removeVoiceRange,
+  toggleSearchFilters,
+  updateHeightFeet,
+  updateHeightInches,
+  updateMinAge,
+  updateMaxAge,
+} from '../../actions'
 import InputSlider from '../../components/Forms/InputSlider'
 import InputCheckboxGroup from '../../components/Forms/InputCheckboxGroup'
 import ButtonVerticalToggle from '../../components/Forms/ButtonVerticalToggle'
@@ -17,13 +30,14 @@ const SearchFilters = (
     activeVoiceRanges,
     addInstrument,
     addVoiceRange,
-    height,
+    heightFeet,
+    heightInches,
     minAge,
     maxAge,
     removeInstrument,
     removeVoiceRange,
     shouldShowFilters,
-    toggleFilters,
+    toggleSearchFilters,
     updateMaxAge,
     updateMinAge,
     updateHeightFeet,
@@ -43,8 +57,8 @@ const SearchFilters = (
         </div>
         <div id="height-group" className="slider-container">
           <h4>Height:</h4>
-          <InputSlider inputName="height-feet" labelName="Feet:" inputValue={height.feet} handleChange={updateHeightFeet} min={2} max={7} />
-          <InputSlider inputName="height-inches" labelName="Inches:" inputValue={height.inches} handleChange={updateHeightInches} min={0} max={11} />
+          <InputSlider inputName="height-feet" labelName="Feet:" inputValue={heightFeet} handleChange={updateHeightFeet} min={2} max={7} />
+          <InputSlider inputName="height-inches" labelName="Inches:" inputValue={heightInches} handleChange={updateHeightInches} min={0} max={11} />
         </div>
         <div id="instruments-group">
           <h4>Instruments:</h4>
@@ -72,7 +86,7 @@ const SearchFilters = (
     <button type="button" id="apply-filters" className={shouldShowFilters ? '' : 'hidden'}>
       Apply
     </button>
-    <ButtonVerticalToggle buttonId="toggle-filters" toggleState={shouldShowFilters} handleClick={toggleFilters} labelName="Filters" />
+    <ButtonVerticalToggle buttonId="toggle-filters" toggleState={shouldShowFilters} handleClick={toggleSearchFilters} labelName="Filters" />
     <style jsx>{`
       #search-filters {
         position: fixed;
@@ -260,25 +274,59 @@ const SearchFilters = (
   </aside>
 )
 
+function mapStateToProps (state) {
+  const {
+    activeInstruments,
+    activeVoiceRanges,
+    heightFeet,
+    heightInches,
+    maxAge,
+    minAge,
+  } = state
+  return {
+    activeInstruments,
+    activeVoiceRanges,
+    heightFeet,
+    heightInches,
+    maxAge,
+    minAge,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => (
+  bindActionCreators({
+    addInstrument,
+    addVoiceRange,
+    removeInstrument,
+    removeVoiceRange,
+    toggleSearchFilters,
+    updateHeightFeet,
+    updateHeightInches,
+    updateMinAge,
+    updateMaxAge,
+  }, dispatch)
+)
+
 SearchFilters.propTypes = exact({
   activeInstruments: arrayOf(string).isRequired,
   activeVoiceRanges: arrayOf(string).isRequired,
   addInstrument: func.isRequired,
   addVoiceRange: func.isRequired,
-  height: shape({
-    feet: number.isRequired,
-    inches: number.isRequired,
-  }).isRequired,
+  heightFeet: number.isRequired,
+  heightInches: number.isRequired,
   minAge: number.isRequired,
   maxAge: number.isRequired,
   removeInstrument: func.isRequired,
   removeVoiceRange: func.isRequired,
   shouldShowFilters: bool.isRequired,
-  toggleFilters: func.isRequired,
+  toggleSearchFilters: func.isRequired,
   updateMinAge: func.isRequired,
   updateMaxAge: func.isRequired,
   updateHeightFeet: func.isRequired,
   updateHeightInches: func.isRequired,
 })
 
-export default SearchFilters
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SearchFilters)
