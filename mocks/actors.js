@@ -1,5 +1,5 @@
-const DogPic = '/static/img/dog-pic.jpg'
-const DogPortrait = '/static/img/dog-portrait.jpg'
+const DogPic = '/static/img/dog-pic.jpg';
+const DogPortrait = '/static/img/dog-portrait.jpg';
 
 export default [
   {
@@ -13,6 +13,18 @@ export default [
       youtube: 'https://www.youtube.com',
       twitter: 'https://twitter.com',
     },
+    bio: 'i am an extremely impressive individual',
+    directorNotes: 'this person succccccccs',
+    auditions: [
+      {
+        date: '10/11/2019',
+        show: 'Wicked',
+      },
+      {
+        date: '12/11/2019',
+        show: 'Chicago',
+      },
+    ],
   },
   {
     id: 1,
@@ -24,6 +36,14 @@ export default [
       youtube: 'https://www.youtube.com',
       twitter: 'https://twitter.com',
     },
+    bio: 'i am an extremely impressive individual',
+    directorNotes: 'this person succccccccs',
+    auditions: [
+      {
+        date: '10/11/2019',
+        show: 'Wicked',
+      },
+    ],
   },
   {
     id: 2,
@@ -36,6 +56,14 @@ export default [
       youtube: '',
       twitter: 'https://twitter.com',
     },
+    bio: 'i am an extremely impressive individual',
+    directorNotes: 'this person succccccccs',
+    auditions: [
+      {
+        date: '10/11/2019',
+        show: 'Wicked',
+      },
+    ],
   },
   {
     id: 3,
@@ -48,6 +76,14 @@ export default [
       youtube: 'https://www.youtube.com',
       twitter: '',
     },
+    bio: 'i am an extremely impressive individual',
+    directorNotes: 'this person succccccccs',
+    auditions: [
+      {
+        date: '10/11/2019',
+        show: 'Wicked',
+      },
+    ],
   },
   {
     id: 4,
@@ -60,6 +96,14 @@ export default [
       youtube: '',
       twitter: 'https://twitter.com',
     },
+    bio: 'i am an extremely impressive individual',
+    directorNotes: 'this person succccccccs',
+    auditions: [
+      {
+        date: '10/11/2019',
+        show: 'Wicked',
+      },
+    ],
   },
   {
     id: 5,
@@ -72,5 +116,13 @@ export default [
       youtube: 'https://www.youtube.com',
       twitter: 'https://twitter.com',
     },
+    bio: 'i am an extremely impressive individual',
+    directorNotes: 'this person succccccccs',
+    auditions: [
+      {
+        date: '10/11/2019',
+        show: 'Wicked',
+      },
+    ],
   },
-]
+];

@@ -1,12 +1,13 @@
-import React from 'react'
-import exact from 'prop-types-exact'
+import React from 'react';
+import exact from 'prop-types-exact';
 import {
   string, bool, arrayOf, shape, number, func,
-} from 'prop-types'
-import { SearchViewModes } from '../../actions'
-const { GRID, LIST } = SearchViewModes
-import SearchResultsList from './SearchResultsList'
-import SearchResultsGrid from './SearchResultsGrid'
+} from 'prop-types';
+import { SearchViewModes } from '../../actions';
+import SearchResultsList from './SearchResultsList';
+import SearchResultsGrid from './SearchResultsGrid';
+
+const { GRID, LIST } = SearchViewModes;
 
 const SearchResults = ({
   viewMode, showFilters, results, openActorDetail,
@@ -14,7 +15,8 @@ const SearchResults = ({
   <div id="results-container">
     {viewMode === GRID && <SearchResultsGrid results={results} showFilters={showFilters} openActorDetail={openActorDetail} />}
     {viewMode === LIST && <SearchResultsList results={results} openActorDetail={openActorDetail} />}
-    <style jsx>{`
+    <style jsx>
+      {`
       #results-container {
         display: flex;
         justify-content: space-between;
@@ -22,9 +24,11 @@ const SearchResults = ({
         margin-top: 2rem;
         width: 100%;
       }
-    `}</style>
+    `}
+
+    </style>
   </div>
-)
+);
 
 SearchResults.propTypes = exact({
   viewMode: string.isRequired,
@@ -42,6 +46,6 @@ SearchResults.propTypes = exact({
     }).isRequired,
   })).isRequired,
   openActorDetail: func.isRequired,
-})
+});
 
-export default SearchResults
+export default SearchResults;
