@@ -19,7 +19,8 @@
     "serve": "next serve",
     "dev": "next",
     "build": "next build",
-    "export": "next export"
+    "export": "next export",
+    "reset-db": "node server/model/reset_db.js"
   },
   "browserslist": [
     ">0.2%",

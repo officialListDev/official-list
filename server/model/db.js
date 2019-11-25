@@ -12,7 +12,7 @@ const pool = new Pool({
   password: process.env.PG_PASSWORD,
   port: 5432,
   ssl: true,
-  idleTimeoutMillis: 30000, // let's avoid memory leaks with these time-outs!
+  idleTimeoutMillis: 10000, // let's avoid memory leaks with these time-outs!
   connectionTimeoutMillis: 2000,
 });
 
@@ -23,13 +23,22 @@ const pool = new Pool({
 // });
 
 // create table if it doesn't exist
-pool.connect((err, client, release) => {
-  client.query(queryStr.createDirectorTable);
-  console.log('connected!');
-  console.log(client);
-  release();
-});
-
+async function createDbTables () {
+  console.log('creating db tables (if they dont exist)');
+  await pool.connect()
+    .then(async (client) => {
+      await client.query(queryStr.createDirectorTable).then(() => {
+        console.log('table exists');
+        client.release();
+      });
+    });
+}
+createDbTables();
 
 // export our connection to the db
 module.exports = pool;
+
+
+// access heroku: 'heroku login' 
+// connect to datastore: heroku pg:psql postgresql-fluffy-41891 --app officialdev
+// see connection info: \conninfo
