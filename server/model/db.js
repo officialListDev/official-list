@@ -12,25 +12,32 @@ const pool = new Pool({
   password: process.env.PG_PASSWORD,
   port: 5432,
   ssl: true,
-  idleTimeoutMillis: 10000, // let's avoid memory leaks with these time-outs!
+  idleTimeoutMillis: 3000, // let's avoid memory leaks with these time-outs!
   connectionTimeoutMillis: 2000,
 });
-
-// // check pool connection
-// pool.connect((err, client, release) => {
-//   console.log('connected!');
-//   console.log(client);
-// });
 
 // create table if it doesn't exist
 async function createDbTables () {
   console.log('creating db tables (if they dont exist)');
   await pool.connect()
     .then(async (client) => {
-      await client.query(queryStr.createDirectorTable).then(() => {
-        console.log('table exists');
-        client.release();
+      await client.query(queryStr.createDirectorsTable).then(() => {
+        console.log('directors table exists');
       });
+      await client.query(queryStr.createActorsTable).then(() => {
+        console.log('actors table exists');
+      });
+      await client.query(queryStr.createWatchlistsTable).then(() => {
+        console.log('watchlists table exists');
+      });
+      await client.query(queryStr.createAuditionsTable).then(() => {
+        console.log('auditions table exists');
+      });
+      await client.query(queryStr.createNotesTable).then(() => {
+        console.log('notes table exists');
+        // client.release();
+      })
+        .then(() => client.release());
     });
 }
 createDbTables();

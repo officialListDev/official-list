@@ -3,7 +3,7 @@ const queryStr = require('./queries.js');
 
 // DROP table
 async function resetDb () {
-  console.log('restting psql database...');
+  console.log('resetting psql database...');
   await pool.connect()
     .then(async (client) => {
       await client.query(queryStr.dropTables).then(() => {
