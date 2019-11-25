@@ -37,8 +37,3 @@ createDbTables();
 
 // export our connection to the db
 module.exports = pool;
-
-
-// access heroku: 'heroku login' 
-// connect to datastore: heroku pg:psql postgresql-fluffy-41891 --app officialdev
-// see connection info: \conninfo
