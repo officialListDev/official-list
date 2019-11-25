@@ -2,6 +2,7 @@
 // credentials: https://data.heroku.com/datastores/d9b359b6-af0f-4a04-94b9-bff0c4a7c601#administration
 const { Pool } = require('pg');
 require('dotenv').config();
+const queryStr = require('./queries.js'); 
 
 // connect to heroku db in cloud (postgres)
 const pool = new Pool({
@@ -15,11 +16,20 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000,
 });
 
-// check pool connection
+// // check pool connection
+// pool.connect((err, client, release) => {
+//   console.log('connected!');
+//   console.log(client);
+// });
+
+// create table if it doesn't exist
 pool.connect((err, client, release) => {
+  client.query(queryStr.createDirectorTable);
   console.log('connected!');
   console.log(client);
+  release();
 });
+
 
 // export our connection to the db
 module.exports = pool;
