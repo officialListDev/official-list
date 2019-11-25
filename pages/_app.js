@@ -1,19 +1,20 @@
-import React from 'react'
-import App, { Container } from 'next/app'
-import { Provider } from 'react-redux'
-import withReduxStore from '../lib/with-redux-store'
-import Navigation from '../components/Navigation/index'
+import React from 'react';
+import App, { Container } from 'next/app';
+import { Provider } from 'react-redux';
+import withReduxStore from '../lib/with-redux-store';
+import Navigation from '../components/Navigation/index';
 
 class MyApp extends App {
   render () {
-    const { Component, pageProps, reduxStore } = this.props
+    const { Component, pageProps, reduxStore } = this.props;
     return (
       <Container>
         <Navigation />
         <Provider store={reduxStore}>
           <Component {...pageProps} />
         </Provider>
-        <style jsx global>{`
+        <style jsx global>
+          {`
           body {
             margin: 0;
             padding: 0;
@@ -729,10 +730,12 @@ class MyApp extends App {
             .hamburger--vortex-r.is-active .hamburger-inner::after {
               bottom: 0;
               transform: rotate(-90deg); }
-        `}</style>
+        `}
+
+        </style>
       </Container>
-    )
+    );
   }
 }
 
-export default withReduxStore(MyApp)
+export default withReduxStore(MyApp);

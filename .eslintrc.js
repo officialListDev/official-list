@@ -25,7 +25,7 @@ module.exports = {
     "indent": [ 2, 2 ],
     "linebreak-style": [ 2, "unix" ],
     "quotes": [ 2, "single" ],
-    "semi": [ 2, "never" ],
+    "semi": [ 2, "always" ],
     "jsx-a11y/anchor-is-valid": [2, {
       "components": [ "Link" ],
       "specialLink": [ "to", "hrefLeft", "hrefRight" ],

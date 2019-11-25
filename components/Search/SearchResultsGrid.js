@@ -1,12 +1,12 @@
-import React from 'react'
-import exact from 'prop-types-exact'
+import React from 'react';
+import exact from 'prop-types-exact';
 import {
   arrayOf, shape, bool, string, number, func,
-} from 'prop-types'
-import ExternalLink from '../../components/Utility/ExternalLink'
+} from 'prop-types';
+import ExternalLink from '../Utility/ExternalLink';
 
 const SearchResultsGrid = ({ results, showFilters, openActorDetail }) => (
-  results.map(result => (
+  results.map((result) => (
     <div
       className={showFilters ? 'grid-card' : 'grid-card compact'}
       key={`${result.firstName}-${result.lastName}`}
@@ -29,7 +29,8 @@ const SearchResultsGrid = ({ results, showFilters, openActorDetail }) => (
           {result.socialMedia.twitter && <ExternalLink href={result.socialMedia.twitter}><img src="/static/img/twitter.svg" alt="twitter" /></ExternalLink>}
         </div>
       </div>
-      <style jsx>{`
+      <style jsx>
+        {`
         .grid-card {
           width: calc(50% - 1rem);
           margin: 0.5rem 0;
@@ -85,10 +86,12 @@ const SearchResultsGrid = ({ results, showFilters, openActorDetail }) => (
         .social-icon-group img:hover {
           opacity: 0.7;
         }
-      `}</style>
+      `}
+
+      </style>
     </div>
   ))
-)
+);
 
 SearchResultsGrid.propTypes = exact({
   showFilters: bool.isRequired,
@@ -105,6 +108,6 @@ SearchResultsGrid.propTypes = exact({
     }).isRequired,
   })).isRequired,
   openActorDetail: func.isRequired,
-})
+});
 
-export default SearchResultsGrid
+export default SearchResultsGrid;

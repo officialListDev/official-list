@@ -1,11 +1,11 @@
-import React from 'react'
-import Link from 'next/link'
-import { bool } from 'prop-types'
-import exact from 'prop-types-exact'
+import React from 'react';
+import Link from 'next/link';
+import { bool } from 'prop-types';
+import exact from 'prop-types-exact';
 
 const propTypes = exact({
   isOpen: bool,
-})
+});
 
 const Sidebar = ({ isOpen }) => (
   <aside id="sidebar" className={`${isOpen ? 'expanded' : ''}`}>
@@ -17,9 +17,13 @@ const Sidebar = ({ isOpen }) => (
         <li>
           <Link href="/search"><a to="/search"><div className="nav-item">Search</div></a></Link>
         </li>
+        <li>
+          <Link href="/lists"><a to="/lists"><div className="nav-item">Lists</div></a></Link>
+        </li>
       </ul>
     </nav>
-    <style jsx>{`
+    <style jsx>
+      {`
       aside#sidebar {
         position: fixed;
         top: 0;
@@ -54,14 +58,16 @@ const Sidebar = ({ isOpen }) => (
       .nav-item {
         padding: 0.75rem 1rem;
       }
-    `}</style>
-  </aside>
-)
+    `}
 
-Sidebar.propTypes = propTypes
+    </style>
+  </aside>
+);
+
+Sidebar.propTypes = propTypes;
 
 Sidebar.defaultProps = {
   isOpen: false,
-}
+};
 
-export default Sidebar
+export default Sidebar;
