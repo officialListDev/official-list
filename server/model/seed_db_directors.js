@@ -2,7 +2,7 @@ const pool = require('./db.js');
 const faker = require('faker');
 const queryStr = require('./queries.js'); 
 
-async function seedDb (){
+async function seedDbDirectors (){
 
   // get fake data values from 'faker'
   const fakeDataValues = [
@@ -28,5 +28,5 @@ async function seedDb (){
 // run our 'seed row' function N times
 const numSeededRows = 25;
 for (let i = 0; i < numSeededRows; i += 1) {
-  seedDb();
+  seedDbDirectors();
 }

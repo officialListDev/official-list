@@ -22,7 +22,8 @@
     "export": "next export",
     "reset-db": "node server/model/reset_db.js",
     "create-db": "node server/model/create_db.js",
-    "seed-db": "node server/model/seed_db_directors.js"
+    "seed-db-directors": "node server/model/seed_db_directors.js",
+    "seed-db-actors": "node server/model/seed_db_actors.js"
   },
   "browserslist": [
     ">0.2%",
