@@ -1,7 +1,7 @@
 const pool = require('./db.js');
 const queryStr = require('./queries.js'); 
 
-const queryStrArray = [queryStr.createActorsTable, queryStr.createDirectorsTable, queryStr.createAuditionsTable, queryStr.createNotesTable, queryStr.createWatchlistsTable];
+const queryStrArray = [queryStr.createActorsTable, queryStr.createDirectorsTable, queryStr.createAuditionsTable, queryStr.createNotesTable, queryStr.createWatchlistsTable, queryStr.createDirectorWatchlistsTable];
 
 // create table if it doesn't exist
 async function createDb () {

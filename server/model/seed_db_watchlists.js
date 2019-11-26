@@ -15,7 +15,7 @@ async function seedDbWatchlists (){
     .then((client) => {
       // run each of our 'seed' queries, using the associated fake data values
       client.query(queryStr.seedWatchlistsTable, fakeDataValues)
-        .then((newRows) => console.log(`Watchlist: ${newRows.rows[0].list_name}`))
+        .then((newRows) => console.log(`Watchlist: ${newRows.rows[0].name}`))
         .then(() => client.release())
         .catch((err) => console.log('Error adding watchlist', err));
     }).catch((err) => console.log('Error Connecting ', err));
