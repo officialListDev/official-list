@@ -6,7 +6,11 @@ module.exports = {
   createNotesTable: 'CREATE TABLE IF NOT EXISTS notes (id SERIAL PRIMARY KEY, director_id INTEGER NOT NULL REFERENCES directors(id) ON DELETE CASCADE, actor_id INTEGER NOT NULL REFERENCES actors(id) ON DELETE CASCADE, text VARCHAR, private_flag BOOLEAN)',
   // createDirectorWatchlists: 'CREATE TABLE IF NOT EXISTS director_watchlists ()'
   // https://stackoverflow.com/questions/35338711/cannot-drop-table-users-because-other-objects-depend-on-it
-  dropTables: 'DROP TABLE if exists directors cascade',
+  dropDirectorsTable: 'DROP TABLE IF EXISTS directors cascade',
+  dropActorsTable: 'DROP TABLE IF EXISTS actors cascade',
+  dropWatchlistsTable: 'DROP TABLE IF EXISTS watchlists cascade',
+  dropAuditionsTable: 'DROP TABLE IF EXISTS auditions cascade',
+  dropNotesTable: 'DROP TABLE IF EXISTS notes cascade',
   // createSearchTable: 'CREATE TABLE IF NOT EXISTS searches (_id SERIAL PRIMARY KEY, url VARCHAR, result VARCHAR)',
   // postSearchTable: 'INSERT INTO searches (url, result) VALUES($1, $2)',
   // queryLogging: function (){
