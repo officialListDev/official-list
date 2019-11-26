@@ -32,6 +32,8 @@ module.exports = {
   dropWatchlistsTable: 'DROP TABLE IF EXISTS watchlists cascade',
   dropAuditionsTable: 'DROP TABLE IF EXISTS auditions cascade',
   dropNotesTable: 'DROP TABLE IF EXISTS notes cascade',
+  dropDirectorWatchlistsTable: 'DROP TABLE IF EXISTS director_watchlists cascade',
+  dropWatchlistActorsTable: 'DROP TABLE IF EXISTS watchlist_actors cascade',
   seedDirectorsTable: 'INSERT INTO directors("first_name", "last_name", "email", "password", "phone_number", "company_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
   seedActorsTable: 'INSERT INTO actors("headshot", "resume", "first_name", "last_name", "email", "password", "phone_number", "city", "facebook", "twitter", "instagram", "youtube", "bio") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *',
   seedWatchlistsTable: 'INSERT INTO watchlists("name", "description") VALUES ($1, $2) RETURNING *',

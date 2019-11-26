@@ -20,8 +20,9 @@
     "dev": "next",
     "build": "next build",
     "export": "next export",
-    "reset-db": "node server/model/reset_db.js",
-    "create-db": "node server/model/create_db.js",
+    "drop-tables": "node server/model/drop_db_tables.js",
+    "create-tables": "node server/model/create_db_tables.js",
+    "reset-tables": "npm run drop-tables && npm run create-tables & npm run seed-db-directors & npm run seed-db-actors & npm run seed-db-watchlists",
     "seed-db-directors": "node server/model/seed_db_directors.js",
     "seed-db-actors": "node server/model/seed_db_actors.js",
     "seed-db-watchlists": "node server/model/seed_db_watchlists.js"
