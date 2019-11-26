@@ -20,7 +20,8 @@
     "dev": "next",
     "build": "next build",
     "export": "next export",
-    "reset-db": "node server/model/reset_db.js"
+    "reset-db": "node server/model/reset_db.js",
+    "create-db": "node server/model/create_db.js"
   },
   "browserslist": [
     ">0.2%",
