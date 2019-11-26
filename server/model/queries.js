@@ -15,6 +15,17 @@ module.exports = {
     CONSTRAINT director_watchlists_list_id FOREIGN KEY (watchlist_id) 
       REFERENCES watchlists (id) 
       MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE)`,
+  createWatchlistActorsTable: `
+  CREATE TABLE IF NOT EXISTS watchlist_actors
+  (watchlist_id INTEGER NOT NULL,
+  actor_id INTEGER NOT NULL,
+  PRIMARY KEY (watchlist_id, actor_id),
+    CONSTRAINT watchlist_actors_watchlist_id_fkey FOREIGN KEY (watchlist_id)
+      REFERENCES watchlists (id)
+      MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT watchlist_actors_actor_id_fkey FOREIGN KEY (actor_id)
+      REFERENCES actors (id)
+      MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE)`,
   // https://stackoverflow.com/questions/35338711/cannot-drop-table-users-because-other-objects-depend-on-it
   dropDirectorsTable: 'DROP TABLE IF EXISTS directors cascade',
   dropActorsTable: 'DROP TABLE IF EXISTS actors cascade',
