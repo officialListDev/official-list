@@ -9,6 +9,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const apiRouter = require('./routes/api.js');
+const authRouter = require('./routes/auth.js');
     
 app.prepare()
   .then(() => {
@@ -18,6 +19,9 @@ app.prepare()
     // Add middleware here
     // https://dev.to/aurelkurtula/introduction-to-nextjs---adding-express-and-mongo-to-the-project-2d38
     server.use('/api', apiRouter);
+
+    // Handle all /auth endpoints, that is signup: /auth/signup, login: /auth/login
+    server.use('/auth', authRouter);
 
     // Default Path
     server.get('*', (req, res) => {
