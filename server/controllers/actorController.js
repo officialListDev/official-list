@@ -1,10 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const actorController = {};
 
 const pool = require('../model/db.js');
 const queries = require('../model/queries.js');
 
-router.get('/', async (req, res, next) => {
+actorController.getActors = async (req, res, next) => {
   await pool.connect()
     .then(async (client) => {
       return client.query(queries.getActors)
@@ -16,6 +15,7 @@ router.get('/', async (req, res, next) => {
         .finally( client.release() );
     })
     .catch(err => console.log('error connecting', err));
-});
+};
 
-module.exports = router;
+
+module.exports = actorController;

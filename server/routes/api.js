@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-// Get all routes here
-const listRouter = require('./lists.js');
-const actorsRouter = require('./actors.js');
+// Controllers
+const listController = require('../controllers/listController.js');
+const actorController = require('../controllers/actorController.js');
 
-router.use('/lists', listRouter);
-router.use('/actors', actorsRouter);
+// List Routing
+router.get('/lists', listController.getWatchLists);
+
+// Actors Routing
+router.get('/actors', actorController.getActors);
 
 module.exports = router;
