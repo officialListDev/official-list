@@ -37,10 +37,9 @@ module.exports = {
   seedDirectorsTable: 'INSERT INTO directors("first_name", "last_name", "email", "password", "phone_number", "company_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
   seedActorsTable: 'INSERT INTO actors("headshot", "resume", "first_name", "last_name", "email", "password", "phone_number", "city", "facebook", "twitter", "instagram", "youtube", "bio") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *',
   seedWatchlistsTable: 'INSERT INTO watchlists("name", "description") VALUES ($1, $2) RETURNING *',
-  // postSearchTable: 'INSERT INTO searches (url, result) VALUES($1, $2)',
-  // queryLogging: function (){
-  //   console.log('\n*********** visitsController.createVisit ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
-  // },
+  
+  getWatchLists: 'SELECT * FROM watchlists;',
+  getActors: 'SELECT * FROM actors;',
 };
 
 /* Query to test that our director_watchlists JOIN table was created correctly

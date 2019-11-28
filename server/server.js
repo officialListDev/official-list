@@ -12,7 +12,7 @@ const handle = nextApp.getRequestHandler();
 const bodyParser = require('body-parser');
 
 const apiRouter = require('./routes/api.js');
-// const authRouter = require('./routes/auth.js');
+const authRouter = require('./routes/auth.js');
     
 nextApp.prepare()
   .then(() => {
@@ -20,6 +20,7 @@ nextApp.prepare()
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
 
+    server.use('/auth', authRouter);
     server.use('/api', apiRouter);
 
     server.get('*', (req,res) => {
