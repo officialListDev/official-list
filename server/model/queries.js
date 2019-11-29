@@ -37,7 +37,7 @@ module.exports = {
   seedDirectorsTable: 'INSERT INTO directors("first_name", "last_name", "email", "password", "phone_number", "company_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
   seedActorsTable: 'INSERT INTO actors("headshot", "resume", "first_name", "last_name", "email", "password", "phone_number", "city", "facebook", "twitter", "instagram", "youtube", "bio") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *',
   seedWatchlistsTable: 'INSERT INTO watchlists("name", "description") VALUES ($1, $2) RETURNING *',
-  
+
   getWatchLists: `
   SELECT watchlists.id, watchlists.name, watchlists.description
   FROM watchlists 
@@ -50,20 +50,34 @@ module.exports = {
   getDirector: 'SELECT * from directors where email=$1;',
   getActor: 'SELECT * from actors where email=$1;',
 
-  getActorsFromList: 'SELECT * from '
+  getActorsFromList: `
+  SELECT *
+  FROM actors 
+  INNER JOIN watchlist_actors 
+  ON watchlist_actors.actor_id = actors.id 
+  WHERE watchlist_actors.watchlist_id=$1;
+  `,
+
+  addActorToList: `
+  INSERT INTO watchlist_actors ("watchlist_id", "actor_id") VALUES ($1, $2) RETURNING *;
+  `,
+
+  deleteActorFromList: `
+  DELETE FROM watchlist_actors where watchlist_id=$1 AND actor_id=$2;
+  `,
 };
 
 /* Query to test that our director_watchlists JOIN table was created correctly
-SELECT                 
-    tc.table_schema, 
-    tc.constraint_name, 
-    tc.table_name, 
-    kcu.column_name, 
+SELECT
+    tc.table_schema,
+    tc.constraint_name,
+    tc.table_name,
+    kcu.column_name,
     ccu.table_schema AS foreign_table_schema,
     ccu.table_name AS foreign_table_name,
-    ccu.column_name AS foreign_column_name 
-FROM 
-    information_schema.table_constraints AS tc 
+    ccu.column_name AS foreign_column_name
+FROM
+    information_schema.table_constraints AS tc
     JOIN information_schema.key_column_usage AS kcu
       ON tc.constraint_name = kcu.constraint_name
       AND tc.table_schema = kcu.table_schema
