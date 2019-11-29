@@ -3,7 +3,8 @@ import {
   ADD_INSTRUMENT,
   ADD_VOICE_RANGE,
   CLOSE_ACTOR_DETAIL,
-  LOGIN,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS,
   OPEN_ACTOR_DETAIL,
   REMOVE_VOICE_RANGE,
   REMOVE_INSTRUMENT,
@@ -124,11 +125,17 @@ function shouldShowSearchFilters (state = true, action) {
   }
 }
 
-function userProfile (state = { userProfile: null }, action) {
+function login (state = { activeUser: null, errorObj: null }, action) {
   switch (action.type) {
-  case LOGIN:
+  case LOGIN_SUCCESS:
     return {
-      userProfile: action.userProfile,
+      ...state,
+      activeUser: action.activeUser,
+    };
+  case LOGIN_FAILURE:
+    return {
+      ...state,
+      errorObj: action.errorObj,
     };
   default:
     return state;
@@ -141,12 +148,12 @@ const rootReducer = combineReducers({
   activeVoiceRanges,
   heightFeet,
   heightInches,
+  login,
   maxAge,
   minAge,
   searchResults,
   searchViewMode,
   shouldShowSearchFilters,
-  userProfile,
 });
 
 export default rootReducer;

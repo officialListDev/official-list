@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 import { SearchViewModes } from './actions';
 import mockSearchResults from './mocks/actors';
@@ -21,16 +22,13 @@ const exampleInitialState = {
   maxAge: 34,
   heightFeet: 5,
   heightInches: 8,
-  userProfile: {
-    email: 'sspielberg69@aol.com',
-    lists: mockDirectorLists,
-  },
+  login: { activeUser: null, errorObj: null },
 };
 
 export function initializeStore (initialState = exampleInitialState) {
   return createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(applyMiddleware()),
+    composeWithDevTools(applyMiddleware(thunk)),
   );
 }

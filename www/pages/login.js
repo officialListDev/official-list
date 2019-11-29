@@ -6,43 +6,33 @@
  */
 
 import React, { Component } from 'react';
-import connect from 'react-redux';
+import { connect } from 'react-redux';
+// import { useRouter } from 'next/router';
 import { string } from 'prop-types';
 import exact from 'prop-types-exact';
 import fetch from 'isomorphic-unfetch';
 
 import * as actions from '../actions';
+import { apiUrl } from '../static/constants/api';
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (userProfile) => dispatch(actions.login(userProfile)),
+  loginRequest: (userProfile) => dispatch(actions.loginRequest(userProfile)),
+  loginSuccess: (userProfile) => {
+    console.log('dispatch in loginSuccess in login.js: ', dispatch);
+    return dispatch(actions.loginSuccess(userProfile));
+  },
 });
 
 class Login extends Component {
-  // // getting initial component props based on request and process env
-  // static getInitialProps ({ req }) {
-  //   // use https in production
-  //   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-
-  //   // process.browser returns true if in client environment, false if in server environment
-  //   // if in client, the window.location property will have the host url
-  //   // if in server, the request headers will have the host url
-  //   const apiUrl = process.browser
-  //     ? `${protocol}://${window.location.host}/api/login.js`
-  //     : `${protocol}://${req.headers.host}/api/login.js`;
-
-  //   // return apiUrl as kv pair in props object
-  //   return { apiUrl };
-  // }
-
   constructor (props) {
     super(props);
 
-    this.state = { username: '', password: '', error: '' };
+    this.state = { email: '', password: '', error: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // as user types username, updates username in state
+  // as user types email/password, updates email/password in state
   handleChange (event) {
     const key = event.target.id;
     const { value } = event.target;
@@ -53,55 +43,53 @@ class Login extends Component {
   async handleSubmit (event) {
     // prevent page refresh
     event.preventDefault();
-    // destructure username, password, and apiUrl from state and props
-    const { username, password } = this.state;
-    const { apiUrl } = this.props;
+    // destructure email, password, and apiUrl from state and props
+    const { email, password } = this.state;
 
-    // fetch from apiUrl sending username and password in body
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
+    // // fetch from apiUrl sending email and password in body
+    // try {
+    //   const response = await fetch(`${apiUrl}/auth/director/login`, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ email, password }),
+    //   });
 
-      // if response has truthy ok property
-      if (response.ok) {
-        // destructure userProfile from response
-        const { userProfile } = await response.json();
-        // dispatch login action with userProfile as payload
-      } else {
-        console.log('Login failed.');
+    //   // if response has truthy ok property
+    //   if (response.ok) {
+    //     // destructure userProfile from response
+    //     const directorProfile = await response.json();
+    //     // dispatch login action with userProfile as payload
+    //     console.log('server response: ', directorProfile);
+    //   } else {
+    //     console.log('Login failed.');
 
-        // if response does not have truthy token
-        // create new Error with response statusText
-        // and reject promise passing in error
-        const error = new Error(response.statusText);
-        error.response = response;
-        return Promise.reject(error);
-      }
-    } catch (error) {
-      // log error from rejected promise to the console and throw an error
-      console.error(
-        'You have an error in your code or there are Network issues',
-        error,
-      );
-      throw new Error(error);
-    }
+    //     // if response does not have truthy token
+    //     // print 'email and password combination not found'
+    //   }
+    // } catch (error) {
+    //   // log error from rejected promise to the console and throw an error
+    //   console.error(
+    //     'You have an error in your code or there are Network issues',
+    //     error,
+    //   );
+    //   throw new Error(error);
+    // }
+    const { loginRequest } = this.props;
+    loginRequest({ email, password });
   }
 
   render () {
-    const { username, password, error } = this.state;
+    const { email, password, error } = this.state;
     return (
       <div className="login">
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">
-            Username
+          <label htmlFor="email">
+            Email
             <input
               type="text"
-              id="username"
-              name="username"
-              value={username}
+              id="email"
+              name="email"
+              value={email}
               onChange={this.handleChange}
             />
           </label>
@@ -158,8 +146,9 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = exact({
-  apiUrl: string.isRequired,
-});
+// Login.propTypes = exact({
+//   apiUrl: string.isRequired,
+// });
 
 export default connect(null, mapDispatchToProps)(Login);
+// export default Login;

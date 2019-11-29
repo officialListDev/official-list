@@ -10,7 +10,7 @@ const pool = new Pool({
   database: process.env.PG_DATABASE,
   password: process.env.PG_PASSWORD,
   port: 5432,
-  ssl: true,
+  ssl: false,
   idleTimeoutMillis: 4000, // let's avoid memory leaks with these time-outs!
   connectionTimeoutMillis: 4000,
 });

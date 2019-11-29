@@ -1,8 +1,13 @@
+import fetch from 'isomorphic-unfetch';
+import { apiUrl } from './static/constants/api';
+
 // Action Types
 export const ADD_INSTRUMENT = 'ADD_INSTRUMENT';
 export const ADD_VOICE_RANGE = 'ADD_VOICE_RANGE';
 export const CLOSE_ACTOR_DETAIL = 'CLOSE_ACTOR_DETAIL';
 export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const OPEN_ACTOR_DETAIL = 'OPEN_ACTOR_DETAIL';
 export const REMOVE_INSTRUMENT = 'REMOVE_INSTRUMENT';
@@ -36,6 +41,38 @@ export function closeActorDetail () {
 
 export function login (userProfile) {
   return { type: LOGIN, userProfile };
+}
+
+export function loginFailure (errorObj) {
+  return { type: LOGIN_FAILURE, errorObj };
+}
+
+export function loginSuccess (activeUser) {
+  console.log('activeUser in loginSuccess: ', activeUser);
+  return { type: LOGIN_SUCCESS, activeUser };
+}
+
+export function loginRequest (loginInfo) {
+  return (dispatch) => {
+    console.log(dispatch);
+    return fetch(`${apiUrl}/auth/director/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(loginInfo),
+    }).then((response) => {
+      if (response.ok) return response.json();
+      console.log('incorrect login info');
+      return Promise.reject(new Error('incorrect login info'));
+    })
+      .then((userProfile) => {
+        console.log('dispatching loginSuccess');
+        dispatch(loginSuccess(userProfile));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(loginFailure({ errorObj: err }));
+      });
+  };
 }
 
 export function logout () {

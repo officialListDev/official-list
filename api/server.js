@@ -1,14 +1,18 @@
 const express = require('express');
+
 const server = express();
 const PORT = 4000;
 
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const apiRouter = require('./routes/api.js');
 const authRouter = require('./routes/auth.js');
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
+
+server.use(cors({ origin: 'http://localhost:3000' }));
 
 server.use('/auth', authRouter);
 server.use('/api', apiRouter);
@@ -28,12 +32,12 @@ server.use(
       log: err.message,
       status: 500,
       message: 'Internal Server Error',
-    }
-    const errObj = Object.assign({}, defaultErr, err);
+    };
+    const errObj = { ...defaultErr, ...err };
     // Console log for debugging
     console.log(errObj.log);
     return res.status(errObj.status).json(errObj.message);
-  }
+  },
 );
 
 
@@ -42,5 +46,5 @@ server.use(
  */
 server.listen(
   PORT,
-  () => console.log(`App Running on PORT: ${PORT}`)
+  () => console.log(`App Running on PORT: ${PORT}`),
 );
