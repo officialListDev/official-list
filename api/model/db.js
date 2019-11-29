@@ -11,8 +11,8 @@ const pool = new Pool({
   password: process.env.PG_PASSWORD,
   port: 5432,
   ssl: true,
-  idleTimeoutMillis: 2000, // let's avoid memory leaks with these time-outs!
-  connectionTimeoutMillis: 2000,
+  idleTimeoutMillis: 4000, // let's avoid memory leaks with these time-outs!
+  connectionTimeoutMillis: 4000,
 });
 
 // export our connection to the db
