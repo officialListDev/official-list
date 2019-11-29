@@ -39,7 +39,7 @@ module.exports = {
   seedWatchlistsTable: 'INSERT INTO watchlists("name", "description") VALUES ($1, $2) RETURNING *',
   
   getWatchLists: 'SELECT * FROM watchlists;',
-  getActors: 'SELECT * FROM actors;',
+  getActors: 'SELECT * FROM actors where city=$1::text;',
 
   getDirector: 'SELECT * from directors where email=$1;',
   getActor: 'SELECT * from actors where email=$1;',
