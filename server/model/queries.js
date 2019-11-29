@@ -40,6 +40,9 @@ module.exports = {
   
   getWatchLists: 'SELECT * FROM watchlists;',
   getActors: 'SELECT * FROM actors;',
+
+  getDirector: 'SELECT * from directors where email=$1;',
+  getActor: 'SELECT * from actors where email=$1;',
 };
 
 /* Query to test that our director_watchlists JOIN table was created correctly

@@ -1,14 +1,26 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/login', (req, res, next) => {
-  res.send({'login': true});
-  return next();
-});
+const authController = require('../controllers/authController.js');
 
-router.post('/signup', (req, res, next) => {
-  res.send({'signup': true});
-  return next();
-});
+router.post('/director/signup', 
+  authController.validate('directorSignup'), 
+  authController.directorSignup
+);
+
+router.post('/director/login', 
+  authController.validate('directorLogin'), 
+  authController.directorLogin
+);
+
+router.post('/actor/signup', 
+  authController.validate('actorSignup'), 
+  authController.actorSignup
+);
+
+router.post('/actor/login', 
+  authController.validate('actorLogin'), 
+  authController.actorLogin
+);
 
 module.exports = router;
