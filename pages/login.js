@@ -6,62 +6,70 @@
  */
 
 import React, { Component } from 'react';
+import connect from 'react-redux';
 import { string } from 'prop-types';
 import exact from 'prop-types-exact';
 import fetch from 'isomorphic-unfetch';
-import { login } from '../utils/auth';
+
+import * as actions from '../actions';
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (userProfile) => dispatch(actions.login(userProfile)),
+});
 
 class Login extends Component {
-  // getting initial component props based on request and process env
-  static getInitialProps ({ req }) {
-    // use https in production
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+  // // getting initial component props based on request and process env
+  // static getInitialProps ({ req }) {
+  //   // use https in production
+  //   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
 
-    // process.browser returns true if in client environment, false if in server environment
-    // if in client, the window.location property will have the host url
-    // if in server, the request headers will have the host url
-    const apiUrl = process.browser
-      ? `${protocol}://${window.location.host}/api/login.js`
-      : `${protocol}://${req.headers.host}/api/login.js`;
+  //   // process.browser returns true if in client environment, false if in server environment
+  //   // if in client, the window.location property will have the host url
+  //   // if in server, the request headers will have the host url
+  //   const apiUrl = process.browser
+  //     ? `${protocol}://${window.location.host}/api/login.js`
+  //     : `${protocol}://${req.headers.host}/api/login.js`;
 
-    // return apiUrl as kv pair in props object
-    return { apiUrl };
-  }
+  //   // return apiUrl as kv pair in props object
+  //   return { apiUrl };
+  // }
 
   constructor (props) {
     super(props);
 
-    this.state = { username: '', error: '' };
+    this.state = { username: '', password: '', error: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // as user types username, updates username in state
   handleChange (event) {
-    this.setState({ username: event.target.value });
+    const key = event.target.id;
+    const { value } = event.target;
+    this.setState({ [key]: value });
   }
 
   // asynchronously send login info to api on submit
   async handleSubmit (event) {
     // prevent page refresh
     event.preventDefault();
-    // destructure username and apiUrl from state and props
-    const { username } = this.state;
+    // destructure username, password, and apiUrl from state and props
+    const { username, password } = this.state;
     const { apiUrl } = this.props;
 
-    // fetch from apiUrl sending username in body
+    // fetch from apiUrl sending username and password in body
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username }),
+        body: JSON.stringify({ username, password }),
       });
 
       // if response has truthy ok property
-      // pass response into login function
       if (response.ok) {
-        const { token } = await response.json();
-        login({ token });
+        // destructure userProfile from response
+        const { userProfile } = await response.json();
+        // dispatch login action with userProfile as payload
       } else {
         console.log('Login failed.');
 
@@ -76,26 +84,37 @@ class Login extends Component {
       // log error from rejected promise to the console and throw an error
       console.error(
         'You have an error in your code or there are Network issues',
-        error
+        error,
       );
       throw new Error(error);
     }
   }
 
   render () {
-    const { username, error } = this.state;
+    const { username, password, error } = this.state;
     return (
       <div className="login">
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Username</label>
-
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={this.handleChange}
-          />
+          <label htmlFor="username">
+            Username
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label htmlFor="password">
+            Password
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+            />
+          </label>
           <button type="submit">Login</button>
 
           <p className={`error ${error && 'show'}`}>
@@ -106,7 +125,7 @@ class Login extends Component {
           {`
             .login {
               max-width: 340px;
-              margin: 0 auto;
+              margin: 200px;
               padding: 1rem;
               border: 1px solid #ccc;
               border-radius: 4px;
@@ -143,4 +162,4 @@ Login.propTypes = exact({
   apiUrl: string.isRequired,
 });
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);

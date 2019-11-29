@@ -34,8 +34,8 @@ export function closeActorDetail () {
   return { type: CLOSE_ACTOR_DETAIL };
 }
 
-export function login (userInfo) {
-  return { type: LOGIN, userInfo };
+export function login (userProfile) {
+  return { type: LOGIN, userProfile };
 }
 
 export function logout () {

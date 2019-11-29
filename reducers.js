@@ -124,11 +124,11 @@ function shouldShowSearchFilters (state = true, action) {
   }
 }
 
-function userProfile (state = { email: '', lists: [] }, action) {
+function userProfile (state = { userProfile: null }, action) {
   switch (action.type) {
   case LOGIN:
     return {
-      email: action.email,
+      userProfile: action.userProfile,
     };
   default:
     return state;
