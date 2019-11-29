@@ -50,7 +50,7 @@ authController.directorLogin = async (req, res, next) => {
     .then((client) => {
       client.query(queries.getDirector, values, (err, director) => {
         if (err) {
-          return res.status(404).json({ errors: 'Incorrect email# or password.' });
+          return res.status(404).json({ errors: 'Incorrect email or password.' });
         }
         // console.log('user\'s password', password, director.rows[0].password);
         // If email address is found on the database
@@ -59,7 +59,7 @@ authController.directorLogin = async (req, res, next) => {
             client.release();
             // console.log('what is err', err, passwordMatch);
             if (err || !passwordMatch) {
-              return res.status(404).json({ errors: 'Incorrect email or password#.' });
+              return res.status(404).json({ errors: 'Incorrect email or password.' });
             }
             return res.status(200).json({ message: 'User created' });
           });
