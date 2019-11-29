@@ -65,6 +65,18 @@ module.exports = {
   deleteActorFromList: `
   DELETE FROM watchlist_actors where watchlist_id=$1 AND actor_id=$2;
   `,
+
+  getActorNotes: `
+  SELECT * FROM notes where actor_id=$1;
+  `,
+
+  addNoteToActor: `
+  INSERT INTO notes ("director_id", "actor_id", "text", "private_flag") VALUES($1, $2, $3, $4) RETURNING *;
+  `,
+
+  deleteNoteFromActor: `
+  DELETE FROM notes where id=$1 AND actor_id=$2;
+  `,
 };
 
 /* Query to test that our director_watchlists JOIN table was created correctly
