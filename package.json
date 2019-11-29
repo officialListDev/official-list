@@ -28,7 +28,7 @@
     "seed-db-directors": "node server/model/seed_db_directors.js",
     "seed-db-actors": "node server/model/seed_db_actors.js",
     "seed-db-watchlists": "node server/model/seed_db_watchlists.js",
-    "test": "jest"
+    "test": "node --inspect node_modules/.bin/jest --runInBand --verbose"
   },
   "browserslist": [
     ">0.2%",
