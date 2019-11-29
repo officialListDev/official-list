@@ -38,11 +38,19 @@ module.exports = {
   seedActorsTable: 'INSERT INTO actors("headshot", "resume", "first_name", "last_name", "email", "password", "phone_number", "city", "facebook", "twitter", "instagram", "youtube", "bio") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *',
   seedWatchlistsTable: 'INSERT INTO watchlists("name", "description") VALUES ($1, $2) RETURNING *',
   
-  getWatchLists: 'SELECT * FROM watchlists;',
-  getActors: 'SELECT * FROM actors where city=$1::text;',
+  getWatchLists: `
+  SELECT watchlists.id, watchlists.name, watchlists.description
+  FROM watchlists 
+  INNER JOIN director_watchlists 
+  ON director_watchlists.watchlist_id = watchlists.id 
+  WHERE director_watchlists.director_id=$1;
+  `,
+  getActors: 'SELECT * FROM actors WHERE 1=1 ',
 
   getDirector: 'SELECT * from directors where email=$1;',
   getActor: 'SELECT * from actors where email=$1;',
+
+  getActorsFromList: 'SELECT * from '
 };
 
 /* Query to test that our director_watchlists JOIN table was created correctly
