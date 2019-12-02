@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
-const queries = require('../model/queries.js');
-const pool = require('../model/db.js');
+const queries = require('../../model/queries.js');
+const pool = require('../../model/db.js');
 
 
 const authController = {};
