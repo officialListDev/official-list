@@ -2,6 +2,7 @@
  * @module ListPreview.js
  * @author Austin Ruby
  * @description Page to display all of a director's lists
+ * @changelog name, date, changes
  */
 
 import React, { Component } from 'react';
